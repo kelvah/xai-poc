@@ -1,0 +1,29 @@
+.App-header .pf-c-title {
+  --pf-c-title--m-4xl--FontSize: 3rem;
+}
+
+.decision {
+  $danger-color: #f7923d;
+  &__outcome {
+    background-color: $danger-color;
+    color: white;
+    border-radius: 4px;
+    padding: 0.4rem 0.4rem 0.2rem;
+    font-weight: bold;
+    font-size: (20/16)+rem;
+    text-transform: uppercase;
+  }
+
+  &__score {
+    margin: 0 10px;
+    font-size: (20/16)+rem;
+    text-transform: uppercase;
+    &__label {
+      margin-right: 4px;
+    }
+    &__value {
+      color: $danger-color;
+      font-weight: bold;
+    }
+  }
+}
