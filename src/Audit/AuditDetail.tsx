@@ -16,6 +16,7 @@ import FeaturesTornadoChart from "./FeaturesTornadoChart";
 
 import LoanInputDetail from "../Mocks/loan-input-detail-mock";
 import DecisionOutputData from "../Mocks/decision-outcome-mock";
+import DecisionDistributionChart from "./DecisionDistributionChart";
 
 type state = {}
 type props = {}
@@ -48,7 +49,7 @@ class AuditDetail extends React.Component<props, state> {
                             <FeaturesTornadoChart/>
                         </GridItem>
                         <GridItem span={6}>
-                            span = 4, rowSpan = 2
+                            <DecisionDistributionChart />
                         </GridItem>
 
                     </Grid>

@@ -4,18 +4,21 @@
 
 $danger-color: #f7923d;
 .decision {
+  line-height: 10px;
   &__outcome {
+    display: block;
     background-color: $danger-color;
     color: white;
     border-radius: 4px;
-    padding: 0.4rem 0.4rem 0.2rem;
+    padding: 4px 6px;
     font-weight: bold;
     font-size: (20/16)+rem;
     text-transform: uppercase;
   }
-
   &__score {
-    margin: 0 10px;
+    display: block;
+    position: relative;
+    top: -8px;
     font-size: (20/16)+rem;
     text-transform: uppercase;
     &__label {
@@ -24,6 +27,20 @@ $danger-color: #f7923d;
     &__value {
       color: $danger-color;
       font-weight: bold;
+    }
+    &__bar {
+      display: block;
+      height: 10px;
+      width: 100%;
+      position: absolute;
+      margin-top: 4px;
+      background: linear-gradient(90deg, rgba(251,6,2,1) 0%, rgba(255,209,0,1) 100%);
+      &__indicator {
+        width: 2px;
+        height: 100%;
+        position: absolute;
+        background: grey;
+      }
     }
   }
 }
