@@ -2,8 +2,8 @@
   --pf-c-title--m-4xl--FontSize: 3rem;
 }
 
+$danger-color: #f7923d;
 .decision {
-  $danger-color: #f7923d;
   &__outcome {
     background-color: $danger-color;
     color: white;
@@ -25,5 +25,25 @@
       color: $danger-color;
       font-weight: bold;
     }
+  }
+}
+
+.decision-outcome-badge {
+  border-radius: 4px;
+  padding: 0.4rem 0.4rem 0.2rem;
+  font-weight: bold;
+  font-size: 1rem;
+  text-transform: uppercase;
+  text-align: center;
+  width: 120px;
+  display: inline-block;
+  &--approved {
+    color: var(--pf-global--success-color--200);
+    background-color: var(--pf-global--success-color--100
+    );
+  }
+  &--denied {
+    //background-color: var(--pf-global--danger-color--100);
+    color: var(--pf-global--danger-color--100);
   }
 }

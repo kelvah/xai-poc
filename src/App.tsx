@@ -16,7 +16,7 @@ import {
     PageSidebar,
     SkipToContent,
     TextContent,
-    Text
+    Text, Title
 } from '@patternfly/react-core';
 import { BrowserRouter as Router, Switch, Route, NavLink, Redirect } from "react-router-dom";
 import Audit from "./Audit/Audit";
@@ -117,13 +117,13 @@ class App extends React.Component<appProps, appState> {
                             <Route path="/dashboard">
                                 <PageSection variant={PageSectionVariants.light}>
                                     <TextContent>
-                                        <Text component="h1">Monitoring stuff</Text>
+                                        <Title size="4xl" headingLevel="h1">Monitoring stuff</Title>
                                         <Text component="p">
                                             Here will be the monitoring dashboard
                                         </Text>
                                     </TextContent>
                                 </PageSection>
-                                <PageSection>
+                                <PageSection isFilled={true}>
                                     <Gallery gutter="md">
                                         {Array.apply(0, Array(20)).map((x, i) => (
                                             <GalleryItem key={i}>

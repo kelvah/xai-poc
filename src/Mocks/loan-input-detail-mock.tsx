@@ -1,5 +1,9 @@
 const LoanInputDetail = [
     {
+        inputName: "ID",
+        inputValue: "#XXXXX"
+    },
+    {
         inputName: "Name",
         inputValue: "Jim Osterberg"
     },

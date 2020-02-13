@@ -1,5 +1,13 @@
 import React from "react";
-import {PageSection, PageSectionVariants, Text, TextContent} from "@patternfly/react-core";
+import {
+    Button,
+    ButtonVariant, Form, InputGroup,
+    PageSection,
+    PageSectionVariants,
+    Text,
+    TextContent,
+    TextInput, Title
+} from "@patternfly/react-core";
 import {Table, TableHeader, TableBody, IRow} from "@patternfly/react-table";
 import {Link} from "react-router-dom";
 import AuditList from "../Mocks/decisions-list-mock";
@@ -7,10 +15,25 @@ import AuditList from "../Mocks/decisions-list-mock";
 type appProps = {};
 type stateType = {
     columns: string[],
-    rows: IRow[]
+    rows: IRow[],
+    search: string
 }
+const ApprovalState = (props:{result:string}) => {
+    let className = "decision-outcome-badge decision-outcome-badge--" + props.result.toLocaleLowerCase();
+    return (
+        <span className={className}>{props.result}</span>
+    );
+};
 const rowData = [...AuditList];
 rowData.map((item:IRow, index) => {
+    if (item.cells && item.cells.length) {
+        let value = item.cells.pop();
+        if (typeof value === "string") {
+            item.cells.push({
+                title: <ApprovalState result={value}/>
+            });
+        }
+    }
     if (item.cells) {
         item.cells.push({title: <Link to={`/audit/${item.cells[0]}`}>View Detail</Link>});
     }
@@ -22,7 +45,8 @@ class Audit extends React.Component<appProps, stateType> {
         super(props);
         this.state = {
             columns: ['ID', 'Subject Name', 'Age', 'Outcome', ''],
-            rows: []
+            rows: [],
+            search: ''
         };
     }
     componentDidMount(): void {
@@ -30,20 +54,41 @@ class Audit extends React.Component<appProps, stateType> {
             rows: [...state.rows, ...rowData]
         }));
     };
+    handleSearchChange = (searchString:string):void => {
+        this.setState( {search: searchString});
+    };
+    search = (event:React.SyntheticEvent):void => {
+        event.preventDefault();
+        this.setState((state) => {
+            return {
+                rows: rowData.filter(item => item.cells[0].includes(state.search))
+            }
+        })
+
+    };
     render() {
-        const { columns, rows } = this.state;
+        const { columns, rows, search } = this.state;
         return (
             <>
                 <PageSection variant={PageSectionVariants.light}>
                     <TextContent>
-                        <Text component="h1">Audit Investigation</Text>
+                        <Title size="4xl" headingLevel="h1">Audit Investigation</Title>
                         <Text component="p">
                             Here you can retrieve all the available information about past cases
                         </Text>
                     </TextContent>
                 </PageSection>
-                <PageSection>
-                    <Table header="Decisions" cells={columns} rows={rows}>
+                <PageSection isFilled={true}>
+                    <Form onSubmit={this.search}>
+                        <InputGroup style={{width: "500px", marginBottom: 'var(--pf-global--spacer--lg)'}}>
+                            <TextInput name="auditSearch" id="auditSearch" type="text" value={search} onChange={this.handleSearchChange} aria-label="search applications" />
+                            <Button type="submit" variant={ButtonVariant.control} aria-label="search button for search input">
+                                Search
+                            </Button>
+                        </InputGroup>
+                    </Form>
+
+                    <Table header="Applications" cells={columns} rows={rows}>
                         <TableHeader />
                         <TableBody rowKey="decisionKey" />
                     </Table>

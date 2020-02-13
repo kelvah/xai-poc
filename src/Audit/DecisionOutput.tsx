@@ -9,7 +9,7 @@ type propsType = {
 }
 
 const DecisionOutput = (props: propsType) => {
-    console.log(props);
+    let {score, outcome} = props.decision;
     return (
         <Card>
             <CardHeader>
@@ -18,10 +18,10 @@ const DecisionOutput = (props: propsType) => {
                 </Title>
             </CardHeader>
             <CardBody className="decision">
-                <span className="decision__outcome">Denied</span>
+                <span className="decision__outcome">{outcome}</span>
                 <span className="decision__score" style={{float: "right"}}>
                     <span className="decision__score__label">Score</span>
-                    <span className="decision__score__value">0.48</span></span>
+                    <span className="decision__score__value">{score}</span></span>
             </CardBody>
         </Card>
     )
