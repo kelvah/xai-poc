@@ -1,6 +1,14 @@
 import React from "react";
-import {Button, Card, CardBody, CardHeader, Title} from "@patternfly/react-core";
-
+import {Card, CardBody, CardHeader, Title} from "@patternfly/react-core";
+import ModelInspector from "./ModelInspector";
+const modelInfo = {
+      version: 'v4.0',
+      history: [
+        'v3.0',
+        'v2.0',
+        'v1.0'
+      ]
+};
 const ModelSummary = () => {
     return (
         <Card style={{height: "100%"}}>
@@ -10,7 +18,7 @@ const ModelSummary = () => {
                 </Title>
             </CardHeader>
             <CardBody className="decision">
-                <span>Mortgage Model v5.0</span> <Button variant="link" isInline>View Diagram</Button>
+                <span>Mortgage Model v5.0</span> ~ <ModelInspector model={modelInfo}/>
             </CardBody>
         </Card>
     )
