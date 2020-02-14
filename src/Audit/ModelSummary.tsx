@@ -3,7 +3,7 @@ import {Button, Card, CardBody, CardHeader, Title} from "@patternfly/react-core"
 
 const ModelSummary = () => {
     return (
-        <Card>
+        <Card style={{height: "100%"}}>
             <CardHeader>
                 <Title headingLevel="h3" size="xl">
                     Model Lookup

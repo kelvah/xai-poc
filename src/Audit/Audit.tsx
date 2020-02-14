@@ -1,7 +1,7 @@
 import React from "react";
 import {
     Button,
-    ButtonVariant, Form, InputGroup,
+    ButtonVariant, Form, InputGroup, List, ListItem, ListVariant,
     PageSection,
     PageSectionVariants,
     Text,
@@ -11,7 +11,7 @@ import {
 import {Table, TableHeader, TableBody, IRow} from "@patternfly/react-table";
 import {Link} from "react-router-dom";
 import AuditList from "../Mocks/decisions-list-mock";
-
+const latestSearches = ["1001", "1007", "1032"];
 type appProps = {};
 type stateType = {
     columns: string[],
@@ -44,7 +44,7 @@ class Audit extends React.Component<appProps, stateType> {
     constructor(props: appProps) {
         super(props);
         this.state = {
-            columns: ['ID', 'Subject Name', 'Age', 'Outcome', ''],
+            columns: ['ID', 'Subject Name', 'Date', 'Outcome', ''],
             rows: [],
             search: ''
         };
@@ -64,7 +64,6 @@ class Audit extends React.Component<appProps, stateType> {
                 rows: rowData.filter(item => item.cells[0].includes(state.search))
             }
         })
-
     };
     render() {
         const { columns, rows, search } = this.state;
@@ -87,7 +86,14 @@ class Audit extends React.Component<appProps, stateType> {
                             </Button>
                         </InputGroup>
                     </Form>
-
+                    <Text component="p" style={{marginBottom: 'var(--pf-global--spacer--lg)'}}>
+                        <List variant={ListVariant.inline}>
+                            <ListItem>Last opened audits:</ListItem>
+                            {latestSearches.map(item => {
+                                return <ListItem><Link to={`/audit/${item}`}>#{item}</Link></ListItem>
+                            })}
+                        </List>
+                    </Text>
                     <Table header="Applications" cells={columns} rows={rows}>
                         <TableHeader />
                         <TableBody rowKey="decisionKey" />

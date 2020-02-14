@@ -77,7 +77,10 @@ class App extends React.Component<appProps, appState> {
             <Nav onSelect={this.onNavSelect} aria-label="Nav" theme="dark">
                 <NavList>
                     <li className="pf-c-nav__item">
-                        <NavLink className="pf-c-nav__link" activeClassName="pf-m-current" to="/dashboard">Monitoring</NavLink>
+                        <NavLink className="pf-c-nav__link" activeClassName="pf-m-current" to="/dashboard">Domain Monitoring</NavLink>
+                    </li>
+                    <li className="pf-c-nav__item">
+                        <NavLink className="pf-c-nav__link" activeClassName="pf-m-current" to="/op-dashboard">Operational Monitoring</NavLink>
                     </li>
                     <li className="pf-c-nav__item">
                         <NavLink className="pf-c-nav__link" activeClassName="pf-m-current" to="/audit">Audit Investigation</NavLink>
@@ -117,7 +120,7 @@ class App extends React.Component<appProps, appState> {
                             <Route path="/dashboard">
                                 <PageSection variant={PageSectionVariants.light}>
                                     <TextContent>
-                                        <Title size="4xl" headingLevel="h1">Monitoring stuff</Title>
+                                        <Title size="4xl" headingLevel="h1">Domain Monitoring</Title>
                                         <Text component="p">
                                             Here will be the monitoring dashboard
                                         </Text>
@@ -135,6 +138,28 @@ class App extends React.Component<appProps, appState> {
                                     </Gallery>
                                 </PageSection>
                             </Route>
+                            <Route path="/op-dashboard">
+                                <PageSection variant={PageSectionVariants.light}>
+                                    <TextContent>
+                                        <Title size="4xl" headingLevel="h1">Operational Dashboard</Title>
+                                        <Text component="p">
+                                            Here will be the monitoring dashboard
+                                        </Text>
+                                    </TextContent>
+                                </PageSection>
+                                <PageSection isFilled={true}>
+                                    <Gallery gutter="md">
+                                        {Array.apply(0, Array(20)).map((x, i) => (
+                                            <GalleryItem key={i}>
+                                                <Card>
+                                                    <CardBody>This is a card</CardBody>
+                                                </Card>
+                                            </GalleryItem>
+                                        ))}
+                                    </Gallery>
+                                </PageSection>
+                            </Route>
+
                             <Route exact path="/audit">
                                 <Audit/>
                             </Route>
