@@ -29,7 +29,7 @@ const DecisionDistributionChart = () => {
                     <VictoryChart
                         theme={VictoryTheme.material}
                         height={130}
-                        padding={{top: 10, right:30, bottom: 30, left: 30}}
+                        padding={{top: 10, right:30, bottom: 30, left: 40}}
                     >
                         <VictoryLine
                             style={{
@@ -55,24 +55,43 @@ const DecisionDistributionChart = () => {
                                 }
                             }}
                         />
-                        <VictoryAxis style={{
-                            tickLabels: {
-                                fontSize: 9,
-                                fontFamily: "overpass",
-                            },
-                            grid: {
-                                stroke: "transparent"
-                            }
-                        }}/>
-                        <VictoryAxis dependentAxis style={{
-                            tickLabels: {
-                                fontSize: 9,
-                                fontFamily: "overpass"
-                            },
-                            grid: {
-                                stroke: "transparent"
-                            }
-                        }}/>
+                        <VictoryAxis
+                            label="Scores"
+                            style={{
+                                tickLabels: {
+                                    fontSize: 8,
+                                    fontFamily: "overpass",
+                                    padding: 4
+                                },
+                                grid: {
+                                    stroke: "transparent"
+                                },
+                                axisLabel: {
+                                    fontFamily: "overpass",
+                                    fontSize: 8,
+                                    padding: 20
+                                }
+                            }}
+                        />
+                        <VictoryAxis
+                            dependentAxis
+                            label="Occurrences"
+                            style={{
+                                tickLabels: {
+                                    fontSize: 8,
+                                    fontFamily: "overpass",
+                                    padding: 4
+                                },
+                                grid: {
+                                    stroke: "transparent",
+                                },
+                                axisLabel: {
+                                    fontFamily: "overpass",
+                                    fontSize: 8,
+                                    padding: 25
+                                }
+                            }}
+                        />
                     </VictoryChart>
                 </CardBody>
             </Card>
