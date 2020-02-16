@@ -48,6 +48,7 @@ class ModelInspector extends React.Component<propstype, stateType> {
                                 <FlexItem>
                                     <label>History: </label>
                                     <select name="" id="">
+                                        <option>Browse versions</option>
                                         {history && history.map((option, index) => (
                                             <option
                                                 key={index}

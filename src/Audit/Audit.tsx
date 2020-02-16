@@ -77,7 +77,7 @@ class Audit extends React.Component<appProps, stateType> {
                         </Text>
                     </TextContent>
                 </PageSection>
-                <PageSection isFilled={true}>
+                <PageSection style={{minHeight: "50em"}} isFilled={true}>
                     <Form onSubmit={this.search}>
                         <InputGroup style={{width: "500px", marginBottom: 'var(--pf-global--spacer--lg)'}}>
                             <TextInput name="auditSearch" id="auditSearch" type="text" value={search} onChange={this.handleSearchChange} aria-label="search applications" />

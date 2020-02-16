@@ -14,7 +14,6 @@ import {
     PageSection,
     PageSectionVariants,
     PageSidebar,
-    SkipToContent,
     TextContent,
     Text, Title
 } from '@patternfly/react-core';
@@ -102,7 +101,6 @@ class App extends React.Component<appProps, appState> {
             <PageSidebar nav={PageNav} isNavOpen={isMobileView ? isNavOpenMobile : isNavOpenDesktop} theme="dark" />
         );
         const pageId = 'main-content-page-layout-manual-nav';
-        const PageSkipToContent = <SkipToContent href={`#${pageId}`}>Skip to Content</SkipToContent>;
 
         return (
             <React.Fragment>
@@ -110,7 +108,6 @@ class App extends React.Component<appProps, appState> {
                     <Page
                         header={Header}
                         sidebar={Sidebar}
-                        skipToContent={PageSkipToContent}
                         mainContainerId={pageId}
                     >
                         <Switch>
@@ -118,15 +115,15 @@ class App extends React.Component<appProps, appState> {
                                 <Redirect to="/dashboard" />
                             </Route>
                             <Route path="/dashboard">
-                                <PageSection variant={PageSectionVariants.light}>
+                                <PageSection variant={PageSectionVariants.light} isFilled={true}>
                                     <TextContent>
-                                        <Title size="4xl" headingLevel="h1">Domain Monitoring</Title>
+                                        <Title size="4xl" headingLevel="h1">Domain Monitoring Dashboard</Title>
                                         <Text component="p">
                                             Here will be the monitoring dashboard
                                         </Text>
                                     </TextContent>
                                 </PageSection>
-                                <PageSection isFilled={true}>
+                                <PageSection style={{height: "50em"}} isFilled={true}>
                                     <Gallery gutter="md">
                                         {Array.apply(0, Array(20)).map((x, i) => (
                                             <GalleryItem key={i}>
@@ -141,13 +138,13 @@ class App extends React.Component<appProps, appState> {
                             <Route path="/op-dashboard">
                                 <PageSection variant={PageSectionVariants.light}>
                                     <TextContent>
-                                        <Title size="4xl" headingLevel="h1">Operational Dashboard</Title>
+                                        <Title size="4xl" headingLevel="h1">Operational Monitoring Dashboard</Title>
                                         <Text component="p">
                                             Here will be the monitoring dashboard
                                         </Text>
                                     </TextContent>
                                 </PageSection>
-                                <PageSection isFilled={true}>
+                                <PageSection style={{height: "50em"}} isFilled={true}>
                                     <Gallery gutter="md">
                                         {Array.apply(0, Array(20)).map((x, i) => (
                                             <GalleryItem key={i}>

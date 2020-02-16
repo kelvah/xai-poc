@@ -6,7 +6,7 @@ const AuditList = [
         cells: ['1009', 'Jane Doe', 'Today', 'Approved']
     },
     {
-        cells: ['1008', 'Jim Osterberg', 'Yesterday', 'Approved']
+        cells: ['1008', 'Jim Osterberg', 'Yesterday', 'Denied']
     },
     {
         cells: ['1007', 'Anouk Aimee', '10/02/2019', 'Denied']
