@@ -87,3 +87,17 @@ $danger-color: #f7923d;
     }
   }  
 }
+
+.input-list {
+  &__headings {
+    font-weight: bold;
+  }
+  &__has-chart {
+    .pf-c-data-list__item-content {
+      padding-bottom: 0;
+    }
+  }
+  &__chart {
+    --pf-c-data-list__cell-cell--PaddingTop: 0;
+  }
+}

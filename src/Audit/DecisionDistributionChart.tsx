@@ -22,7 +22,7 @@ const DecisionDistributionChart = () => {
         <>
             <Card>
                 <CardHeader>
-                    <Title headingLevel="h3" size="xl">
+                    <Title headingLevel="h3" size="2xl">
                         Decision distribution (last 90 days)
                     </Title>
                 </CardHeader>

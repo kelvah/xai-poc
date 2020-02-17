@@ -86,15 +86,15 @@ class Audit extends React.Component<appProps, stateType> {
                             </Button>
                         </InputGroup>
                     </Form>
-                    <Text component="p" style={{marginBottom: 'var(--pf-global--spacer--lg)'}}>
+                    <div style={{marginBottom: 'var(--pf-global--spacer--lg)'}}>
                         <List variant={ListVariant.inline}>
                             <ListItem>Last opened audits:</ListItem>
-                            {latestSearches.map(item => {
-                                return <ListItem><Link to={`/audit/${item}`}>#{item}</Link></ListItem>
+                            {latestSearches.map((item, index) => {
+                                return <ListItem key={`row-${index}`}><Link to={`/audit/${item}`}>#{item}</Link></ListItem>
                             })}
                         </List>
-                    </Text>
-                    <Table header="Applications" cells={columns} rows={rows}>
+                    </div>
+                    <Table header="Latest Applications" cells={columns} rows={rows}>
                         <TableHeader />
                         <TableBody rowKey="decisionKey" />
                     </Table>

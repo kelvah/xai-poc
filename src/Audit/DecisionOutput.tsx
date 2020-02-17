@@ -14,7 +14,7 @@ const DecisionOutput = (props: propsType) => {
     return (
         <Card>
             <CardHeader>
-                <Title headingLevel="h3" size="xl">
+                <Title headingLevel="h3" size="2xl">
                     Decision Outcome
                 </Title>
             </CardHeader>
@@ -26,7 +26,7 @@ const DecisionOutput = (props: propsType) => {
                     <FlexItem breakpointMods={[{modifier: FlexModifiers["align-right"]}]}>
                         <span className="decision__score">
                             <span className="decision__score__label">Score</span>
-                            <span className="decision__score__value">{score}</span>
+                            <span className="decision__score__value">{score} </span> <span>{"(<0.5)"}</span>
                             <span className="decision__score__bar">
                                 <span className="decision__score__bar__indicator" style={{left: indicatorPosX+'%'}} />
                             </span>

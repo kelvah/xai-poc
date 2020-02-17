@@ -5,7 +5,7 @@ import {
     Grid,
     GridItem,
     PageSection,
-    PageSectionVariants,
+    PageSectionVariants, Stack, StackItem,
     Text,
     TextContent, Title
 } from "@patternfly/react-core";
@@ -36,22 +36,25 @@ class AuditDetail extends React.Component<props, state> {
                             <InputDataList inputData={LoanInputDetail}/>
                         </GridItem>
                         <GridItem span={6}>
-                            <Flex breakpointMods={[{modifier: FlexModifiers.grow}]}>
-                                <FlexItem style={{flex: "1", alignSelf: "stretch"}}>
-                                    <DecisionOutput decision={DecisionOutputData}/>
-                                </FlexItem>
-                                <FlexItem style={{flex: "1", alignSelf: "stretch"}}>
-                                    <ModelSummary />
-                                </FlexItem>
-                            </Flex>
+                            <Stack gutter="md">
+                                <StackItem>
+                                    <Flex breakpointMods={[{modifier: FlexModifiers.grow}]}>
+                                        <FlexItem style={{flex: "1", alignSelf: "stretch"}}>
+                                            <DecisionOutput decision={DecisionOutputData}/>
+                                        </FlexItem>
+                                        <FlexItem style={{flex: "1", alignSelf: "stretch"}}>
+                                            <ModelSummary />
+                                        </FlexItem>
+                                    </Flex>
+                                </StackItem>
+                                <StackItem>
+                                    <FeaturesTornadoChart/>
+                                </StackItem>
+                                <StackItem>
+                                    <DecisionDistributionChart />
+                                </StackItem>
+                            </Stack>
                         </GridItem>
-                        <GridItem span={6}>
-                            <FeaturesTornadoChart/>
-                        </GridItem>
-                        <GridItem span={6}>
-                            <DecisionDistributionChart />
-                        </GridItem>
-
                     </Grid>
                 </PageSection>
             </>

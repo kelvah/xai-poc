@@ -14,7 +14,7 @@ const ModelSummary = () => {
     return (
         <Card style={{height: "100%"}}>
             <CardHeader>
-                <Title headingLevel="h3" size="xl">
+                <Title headingLevel="h3" size="2xl">
                     Model Lookup
                 </Title>
             </CardHeader>

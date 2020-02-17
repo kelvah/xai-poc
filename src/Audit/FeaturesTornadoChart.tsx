@@ -24,7 +24,7 @@ const FeaturesTornadoChart = () => {
         <>
             <Card>
                 <CardHeader>
-                    <Title headingLevel="h3" size="xl">
+                    <Title headingLevel="h3" size="2xl">
                         Features Explaination
                     </Title>
                 </CardHeader>

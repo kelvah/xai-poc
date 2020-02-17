@@ -1,19 +1,19 @@
 const LoanInputDetail = [
     {
         inputName: "ID",
-        inputValue: "#XXXXX"
+        inputValue: "#1008"
     },
     {
         inputName: "Name",
         inputValue: "Jim Osterberg"
     },
     {
-        inputName: "Annual Income",
-        inputValue: 90000
-    },
-    {
         inputName: "SSN",
         inputValue: "JMMSTB90T03L004C"
+    },
+    {
+        inputName: "Annual Income",
+        inputValue: 90000
     },
     {
         inputName: "Mortgage Amount",
