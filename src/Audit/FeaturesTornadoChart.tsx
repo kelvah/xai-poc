@@ -30,12 +30,10 @@ const FeaturesTornadoChart = () => {
                 </CardHeader>
                 <CardBody>
                     <VictoryChart
-                        /* domain={{y: [-1,1]}} */
-                        domainPadding={{x: 20, y: 50}}
+                        domainPadding={{x: [20, 20], y: 50}}
                         height={260}
-                        padding={{top: 10, right:50, bottom: 10, left: 50}}
+                        padding={{top: 10, right:50, bottom: 30, left: 50}}
                     >
-                        <VictoryAxis tickValues={[]} tickFormat={() => ""} />
                         <VictoryAxis tickFormat={() => ""} style={{axis: {stroke: "#c6c6c6"}}}/>
                         <VictoryBar
                             data={chartData}
