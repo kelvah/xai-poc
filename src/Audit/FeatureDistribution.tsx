@@ -18,7 +18,6 @@ let chartData = [
     {
         x: 5, y: 60, desc: ">90k"
     }
-
 ];
 
 const FeatureDistribution = () => {
@@ -71,7 +70,6 @@ const FeatureDistribution = () => {
                     data={chartData}
                 />
             </VictoryChart>
-
         </div>
     )
 };

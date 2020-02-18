@@ -10,7 +10,8 @@ import {
     DataListItemRow,
     Title
 } from "@patternfly/react-core";
-import FeatureDistributionChart from "./FeatureDistribution";
+import FeatureDistribution from "./FeatureDistribution";
+import FeatureDistributionBoxPlot from "./FeatureDistributionBoxPlot";
 
 type inputDataProps = {
     inputData: inputElement[]
@@ -55,8 +56,11 @@ const InputDataList = (props: inputDataProps) => {
                                                 </DataListCell>,
                                                 <DataListCell key="secondary content" alignRight={true}>{input.inputValue}</DataListCell>,
                                                 <DataListCell key="chart content" className="input-list__chart">
+                                                    {rowHasChart && false &&
+                                                        <FeatureDistribution />
+                                                    }
                                                     {rowHasChart &&
-                                                        <FeatureDistributionChart />
+                                                        <FeatureDistributionBoxPlot />
                                                     }
                                                 </DataListCell>
                                             ]}
