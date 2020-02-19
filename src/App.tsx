@@ -17,7 +17,7 @@ import {
     TextContent,
     Text, Title
 } from '@patternfly/react-core';
-import { BrowserRouter as Router, Switch, Route, NavLink, Redirect } from "react-router-dom";
+import {Switch, Route, NavLink, Redirect, HashRouter} from "react-router-dom";
 import Audit from "./Audit/Audit";
 import AuditDetail from "./Audit/AuditDetail";
 import ScrollToTop from "./Shared/ScrollToTop";
@@ -105,69 +105,69 @@ class App extends React.Component<appProps, appState> {
 
         return (
             <React.Fragment>
-                <Router>
-                    <ScrollToTop />
-                    <Page
-                        header={Header}
-                        sidebar={Sidebar}
-                        mainContainerId={pageId}
-                    >
-                        <Switch>
-                            <Route exact path="/">
-                                <Redirect to="/dashboard" />
-                            </Route>
-                            <Route path="/dashboard">
-                                <PageSection variant={PageSectionVariants.light} isFilled={true}>
-                                    <TextContent>
-                                        <Title size="4xl" headingLevel="h1">Domain Monitoring Dashboard</Title>
-                                        <Text component="p">
-                                            Here will be the monitoring dashboard
-                                        </Text>
-                                    </TextContent>
-                                </PageSection>
-                                <PageSection style={{height: "50em"}} isFilled={true}>
-                                    <Gallery gutter="md">
-                                        {Array.apply(0, Array(20)).map((x, i) => (
-                                            <GalleryItem key={i}>
-                                                <Card>
-                                                    <CardBody>This is a card</CardBody>
-                                                </Card>
-                                            </GalleryItem>
-                                        ))}
-                                    </Gallery>
-                                </PageSection>
-                            </Route>
-                            <Route path="/op-dashboard">
-                                <PageSection variant={PageSectionVariants.light}>
-                                    <TextContent>
-                                        <Title size="4xl" headingLevel="h1">Operational Monitoring Dashboard</Title>
-                                        <Text component="p">
-                                            Here will be the monitoring dashboard
-                                        </Text>
-                                    </TextContent>
-                                </PageSection>
-                                <PageSection style={{height: "50em"}} isFilled={true}>
-                                    <Gallery gutter="md">
-                                        {Array.apply(0, Array(20)).map((x, i) => (
-                                            <GalleryItem key={i}>
-                                                <Card>
-                                                    <CardBody>This is a card</CardBody>
-                                                </Card>
-                                            </GalleryItem>
-                                        ))}
-                                    </Gallery>
-                                </PageSection>
-                            </Route>
+                <HashRouter>
+                        <ScrollToTop />
+                        <Page
+                            header={Header}
+                            sidebar={Sidebar}
+                            mainContainerId={pageId}
+                        >
+                            <Switch>
+                                <Route exact path="/">
+                                    <Redirect to="/dashboard" />
+                                </Route>
+                                <Route path="/dashboard">
+                                    <PageSection variant={PageSectionVariants.light} isFilled={true}>
+                                        <TextContent>
+                                            <Title size="4xl" headingLevel="h1">Domain Monitoring Dashboard</Title>
+                                            <Text component="p">
+                                                Here will be the monitoring dashboard
+                                            </Text>
+                                        </TextContent>
+                                    </PageSection>
+                                    <PageSection style={{height: "50em"}} isFilled={true}>
+                                        <Gallery gutter="md">
+                                            {Array.apply(0, Array(20)).map((x, i) => (
+                                                <GalleryItem key={i}>
+                                                    <Card>
+                                                        <CardBody>This is a card</CardBody>
+                                                    </Card>
+                                                </GalleryItem>
+                                            ))}
+                                        </Gallery>
+                                    </PageSection>
+                                </Route>
+                                <Route path="/op-dashboard">
+                                    <PageSection variant={PageSectionVariants.light}>
+                                        <TextContent>
+                                            <Title size="4xl" headingLevel="h1">Operational Monitoring Dashboard</Title>
+                                            <Text component="p">
+                                                Here will be the monitoring dashboard
+                                            </Text>
+                                        </TextContent>
+                                    </PageSection>
+                                    <PageSection style={{height: "50em"}} isFilled={true}>
+                                        <Gallery gutter="md">
+                                            {Array.apply(0, Array(20)).map((x, i) => (
+                                                <GalleryItem key={i}>
+                                                    <Card>
+                                                        <CardBody>This is a card</CardBody>
+                                                    </Card>
+                                                </GalleryItem>
+                                            ))}
+                                        </Gallery>
+                                    </PageSection>
+                                </Route>
 
-                            <Route exact path="/audit">
-                                <Audit/>
-                            </Route>
-                            <Route path="/audit/:id">
-                                <AuditDetail />
-                            </Route>
-                        </Switch>
-                    </Page>
-                </Router>
+                                <Route exact path="/audit">
+                                    <Audit/>
+                                </Route>
+                                <Route path="/audit/:id">
+                                    <AuditDetail />
+                                </Route>
+                            </Switch>
+                        </Page>
+                </HashRouter>
             </React.Fragment>
         );
     }
