@@ -17,6 +17,7 @@ import FeaturesTornadoChart from "./FeaturesTornadoChart";
 import LoanInputDetail from "../Mocks/loan-input-detail-mock";
 import DecisionOutputData from "../Mocks/decision-outcome-mock";
 import DecisionDistributionChart from "./DecisionDistributionChart";
+import NestedInputDataList from "./NestedInputDataList";
 
 type state = {}
 type props = {}
@@ -33,7 +34,14 @@ class AuditDetail extends React.Component<props, state> {
                 <PageSection isFilled={true}>
                     <Grid gutter="md">
                         <GridItem span={6} rowSpan={3}>
-                            <InputDataList inputData={LoanInputDetail}/>
+                            <Stack gutter={"md"}>
+                                <StackItem>
+                                    <NestedInputDataList />
+                                </StackItem>
+                                <StackItem>
+                                    <InputDataList inputData={LoanInputDetail}/>
+                                </StackItem>
+                            </Stack>
                         </GridItem>
                         <GridItem span={6}>
                             <Stack gutter="md">

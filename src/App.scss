@@ -101,3 +101,35 @@ $danger-color: #f7923d;
     --pf-c-data-list__cell-cell--PaddingTop: 0;
   }
 }
+
+.category {
+  &__heading {
+    background-color: #73BCF7 !important;
+    color: #fff;
+    font-weight: bold;
+    .pf-c-data-list__item-content {
+      padding-bottom: 12px;
+    }
+    .pf-c-data-list__cell {
+      padding-top: 12px;
+    }
+  }
+  &__sublist {
+    border: none !important;
+    &__item {
+      padding:4px;
+      margin: 10px 0 20px;
+      background-color: #f0d2b2;
+    }
+  }
+}
+.category-wrap {
+  position: relative;
+  &__desc {
+    position: absolute;
+    text-transform: uppercase;
+    font-size: 10px;
+    left: 0;
+    bottom: -13px;
+  }
+}
