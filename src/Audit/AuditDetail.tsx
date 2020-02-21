@@ -9,12 +9,12 @@ import {
     Text,
     TextContent, Title
 } from "@patternfly/react-core";
-import InputDataList from "./InputDataList";
+// import InputDataList from "./InputDataList";
 import DecisionOutput from "./DecisionOutput";
 import ModelSummary from "./ModelSummary";
 import FeaturesTornadoChart from "./FeaturesTornadoChart";
 
-import LoanInputDetail from "../Mocks/loan-input-detail-mock";
+// import LoanInputDetail from "../Mocks/loan-input-detail-mock";
 import DecisionOutputData from "../Mocks/decision-outcome-mock";
 import DecisionDistributionChart from "./DecisionDistributionChart";
 import NestedInputDataList from "./NestedInputDataList";
@@ -38,9 +38,9 @@ class AuditDetail extends React.Component<props, state> {
                                 <StackItem>
                                     <NestedInputDataList />
                                 </StackItem>
-                                <StackItem>
+                                {/*<StackItem>
                                     <InputDataList inputData={LoanInputDetail}/>
-                                </StackItem>
+                                </StackItem>*/}
                             </Stack>
                         </GridItem>
                         <GridItem span={6}>
