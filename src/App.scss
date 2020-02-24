@@ -130,10 +130,12 @@ $danger-color: #f7923d;
   }
   &__icons {
     width: 30px;
-
+    font-size: 1.25em;
     &__effect {
-      font-size: 1.25em;
       color: var(--pf-global--info-color--100)
+    }
+    &__no-effect {
+      color: lighten(#72767B, 40%)
     }
     &--hidden {
       visibility: hidden;
@@ -141,6 +143,9 @@ $danger-color: #f7923d;
   }
 }
 .category {
+  &--sticky {
+    z-index: 1000;
+  }
   &__heading {
     background-color: var(--pf-global--info-color--100) !important;
     color: #fff;
