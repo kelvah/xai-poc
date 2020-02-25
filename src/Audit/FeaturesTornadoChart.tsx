@@ -17,7 +17,7 @@ chartData.map((item, i) => {
     return item;
 });
 const colorFill = (value: number): string => {
-    return (value >= 0) ? 'var(--pf-global--palette--blue-300)' : 'var(--pf-global--palette--orange-200)';
+    return (value >= 0) ? 'var(--pf-global--info-color--100)' : 'var(--pf-global--palette--orange-200)';
 };
 const FeaturesTornadoChart = () => {
     return (

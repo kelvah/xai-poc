@@ -42,7 +42,7 @@ const InputValue = (props:any) => {
     const {inputValue, inputLabel, category, hasEffect} = props;
     const effectItemClass = (hasEffect === true) ? "input-data--affecting" : "input-data--ignored";
     const effectIconClass = (hasEffect === true) ? "input-data__icons__effect" : "input-data__icons__no-effect";
-    const effectTitle = (hasEffect === true) ? "Impacting Feature" : "Ignored Feature";
+    const effectTitle = (hasEffect === true) ? "Impacting Feature" : "Not Impacting Feature";
     return (
         <DataListItem aria-labelledby={"Input columns"} key={`input-item-heading`} className={`input-data__item ${effectItemClass}`}>
             <DataListItemRow>
@@ -99,7 +99,7 @@ class NestedInputDataList extends React.Component<any, any>  {
                     </Flex>
                     <DataList aria-label="Simple data list example" className={filterClass}>
                         <InputValue inputLabel={"Credit Score"} inputValue={"213"} hasEffect={true}/>
-                        <InputValue inputLabel={"Down Payment"} inputValue={"100k"} />
+                        <InputValue inputLabel={"Down Payment"} inputValue={"100000"} />
                         <StickyContainer>
                             <Sticky>
                                 {({ style, isSticky }) => (
