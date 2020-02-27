@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
     Card,
     CardBody,
@@ -13,20 +13,28 @@ import {
 } from "@patternfly/react-core";
 import { RebalanceIcon } from '@patternfly/react-icons';
 import { StickyContainer, Sticky } from 'react-sticky';
-const ListItem = () => {
+import loanProductsInput from './../Mocks/loan-products-nested-input-data';
+
+const ItemsSubList = (props:{itemsList: { [key: string]: itemObject }}) => {
+    const {itemsList} = props;
+    let elements = [];
+    for (let element in itemsList) {
+        if (itemsList.hasOwnProperty(element)) {
+            elements.push(itemsList[element]);
+        }
+    }
     return (
-        <DataListItem aria-labelledby={""} className={"category__sublist"}>
-            <DataList aria-label={""} className={"category__sublist__item"}>
-                <InputValue inputLabel={"Type"} inputValue={"Checking Savings Brokerage account"} category="Borrower / Assets"/>
-                <InputValue inputLabel={"Institution Account or Description"} inputValue={"Chase"} category="Borrower / Assets" />
-                <InputValue inputLabel={"Value"} inputValue={"35000"} category="Borrower" hasEffect={true} />
-            </DataList>
-        </DataListItem>
+      <DataListItem aria-labelledby={""} className={"category__sublist"}>
+          <DataList aria-label={""} className={"category__sublist__item"}>
+              {elements.map(item => <InputValue inputLabel={item.label} inputValue={item.value} key={Math.floor(Math.random() * 10000)}/>)
+              }
+          </DataList>
+      </DataListItem>
     )
 };
 const CategoryLine = (props:any) => {
     const {categoryLabel} = props;
-    const categoryKey = categoryLabel.replace(' ', '');
+    const categoryKey = categoryLabel.replace(' ', '').toLocaleLowerCase();
     return (
         <DataListItem aria-labelledby={""} key={"category-" + categoryKey} className="category__heading">
             <DataListItemRow>
@@ -60,20 +68,90 @@ const InputValue = (props:any) => {
         </DataListItem>
     )
 };
-class NestedInputDataList extends React.Component<any, any>  {
-    constructor(props:any) {
-        super(props);
-        this.state = {
-            showAffectingInput: false
-        };
-    };
-    affectingInputChange = (isChecked:boolean) => {
-        this.setState({showAffectingInput: isChecked})
-    };
-    render() {
-        const {showAffectingInput} = this.state;
-        const filterClass = (showAffectingInput) ? "js-show-affecting-only" : "";
+
+const inputData: { [key: string]: itemObject } = loanProductsInput.data;
+type itemObject = {
+    label: string,
+    value?: string | number,
+    children?: { [key: string]: itemObject },
+    list?: { [key: string]: object }[]
+}
+let itemCategory = "";
+const renderItem = (item:itemObject, category?:string) => {
+    if (item.hasOwnProperty('value')) {
+        let key = Math.floor(Math.random() * 10000);
+        return <InputValue inputLabel={item.label} inputValue={item.value} hasEffect={true} key={key} />
+
+    }
+    if (item.hasOwnProperty('children')) {
+        // console.table(item);
+        itemCategory = (category) ? `${itemCategory} / ${category}` : item.label;
+        let categoryLabel = (itemCategory.length > 0) ? `${itemCategory}` : item.label;
+        let children = [];
+        for (let child in item.children) {
+            if (item.children.hasOwnProperty(child)) {
+                children.push(item.children[child]);
+            }
+        }
         return (
+            <StickyContainer key={Math.floor(Math.random() * 10000)}>
+                <Sticky>
+                    {({ style, isSticky }) => (
+                        <div style={style} className={(isSticky ? 'category--sticky' : 'category')}>
+                            <CategoryLine categoryLabel={categoryLabel} />
+                        </div>
+                    )}
+                </Sticky>
+                {children.map(item => renderItem(item, item.label))}
+            </StickyContainer>
+        )
+    }
+    if (item.hasOwnProperty('list')) {
+        itemCategory = (category) ? `${itemCategory} / ${category}` : item.label;
+        let categoryLabel = (itemCategory.length > 0) ? `${itemCategory}` : item.label;
+        let listItems:any[] = [];
+        if (item.list) {
+            item.list.forEach((object) => {
+                let itemFeatures = [];
+                for (let property in object) {
+                    if (object.hasOwnProperty(property)) {
+                        itemFeatures.push(object[property]);
+                    }
+                }
+                listItems.push(itemFeatures);
+            });
+        }
+
+        return (
+            <StickyContainer key={Math.floor(Math.random() * 10000)}>
+                <Sticky>
+                    {({ style, isSticky }) => (
+                        <div style={style} className={(isSticky ? 'category--sticky' : 'category')}><CategoryLine categoryLabel={categoryLabel} key={Math.random()} /></div>
+                    )}
+                </Sticky>
+                {listItems && listItems.map((item) => (
+                    <ItemsSubList itemsList={item} key={Math.floor(Math.random() * 10000)} />
+                    )
+                )}
+            </StickyContainer>
+        )
+    }
+};
+const NestedInputDataList = () => {
+
+    const [showAffectingInput, setShowAffectingInput] = useState(false);
+
+    const affectingInputChange = (isChecked:boolean) => {
+        setShowAffectingInput(isChecked);
+    };
+    const filterClass = (showAffectingInput) ? "js-show-affecting-only" : "";
+    const items = [];
+    for (let item in inputData) {
+        if (inputData.hasOwnProperty(item)) {
+            items.push(inputData[item]);
+        }
+    }
+    return (
             <Card>
                 <CardHeader>
                     <Title headingLevel="h3" size="2xl">
@@ -93,92 +171,20 @@ class NestedInputDataList extends React.Component<any, any>  {
                                 id="affecting-features"
                                 className="input-data__affecting-switch"
                                 isChecked={showAffectingInput}
-                                onChange={this.affectingInputChange}
+                                onChange={affectingInputChange}
                             />
                         </FlexItem>
                     </Flex>
                     <DataList aria-label="Simple data list example" className={filterClass}>
-                        <InputValue inputLabel={"Credit Score"} inputValue={"213"} hasEffect={true}/>
-                        <InputValue inputLabel={"Down Payment"} inputValue={"100000"} />
-                        <StickyContainer>
-                            <Sticky>
-                                {({ style, isSticky }) => (
-                                        <div style={style} className={(isSticky ? 'category--sticky' : 'category')}><CategoryLine categoryLabel={"Property"} /></div>
-                                )}
-                            </Sticky>
-                            <InputValue inputLabel={"Purchase Price"} inputValue={80000} category="Property" hasEffect={true} />
-                            <InputValue inputLabel={"Monthly Tax Payment"} inputValue={10000} category="Property" hasEffect={true} />
-                            <InputValue inputLabel={"Monthly Insurance Payment"} inputValue={350} category="Property" />
-                            <InputValue inputLabel={"Monthly HOA Condo Fee"} inputValue={0} category="Property" />
-                        </StickyContainer>
-                        <StickyContainer>
-                            <Sticky>
-                                {({ style, isSticky }) => (
-                                    <div style={style} className={(isSticky ? 'category--sticky' : 'category')}>
-                                        <CategoryLine categoryLabel={"Property / Address"} />
-                                    </div>
-                                )}
-                            </Sticky>
-                            <InputValue inputLabel={"Street"} inputValue={"272 10th St."} category="Property / Address" />
-                            <InputValue inputLabel={"Unit"} inputValue={null} category="Property / Address" />
-                            <InputValue inputLabel={"City"} inputValue={"Marina"} category="Property / Address" />
-                            <InputValue inputLabel={"State"} inputValue={"CA"} category="Property / Address" hasEffect={true} />
-                            <InputValue inputLabel={"ZIP"} inputValue={"93933"} category="Property / Address" />
-                        </StickyContainer>
-                        <StickyContainer>
-                            <Sticky>
-                                {({ style, isSticky }) => (
-                                    <div style={style} className={(isSticky ? 'category--sticky' : 'category')}>
-                                        <CategoryLine categoryLabel={"Borrower"} />
-                                    </div>
-                                )}
-                            </Sticky>
-                            <InputValue inputLabel={"Full Name"} inputValue={"Jim Osterberg"} category="Borrower" hasEffect={true} />
-                            <InputValue inputLabel={"Tax ID"} inputValue={"1111222333"} category="Borrower" hasEffect={true} />
-                            <InputValue inputLabel={"Employement Income"} inputValue={"10000"} category="Borrower" hasEffect={true} />
-                            <InputValue inputLabel={"Other Income"} inputValue={"0"} category="Borrower" />
-                        </StickyContainer>
-                        <StickyContainer>
-                            <Sticky>
-                                {({ style, isSticky }) => (
-                                    <div style={style} className={(isSticky ? 'category--sticky' : 'category')}>
-                                        <CategoryLine categoryLabel={"Borrower / Assets"} />
-                                    </div>
-                                )}
-                            </Sticky>
-                            <ListItem />
-                            <ListItem />
-                            <ListItem />
-                        </StickyContainer>
-                        <StickyContainer>
-                            <Sticky>
-                                {({ style, isSticky }) => (
-                                    <div style={style} className={(isSticky ? 'category--sticky' : 'category')}>
-                                        <CategoryLine categoryLabel={"Liabilities"} />
-                                    </div>
-                                )}
-                            </Sticky>
-                            <ListItem />
-                            <ListItem />
-                            <ListItem />
-                        </StickyContainer>
-                        <StickyContainer>
-                            <Sticky>
-                                {({ style, isSticky }) => (
-                                    <div style={style} className={(isSticky ? 'category--sticky' : 'category')}>
-                                        <CategoryLine categoryLabel={"Lender Ratings"} />
-                                    </div>
-                                )}
-                            </Sticky>
-                            <ListItem />
-                            <ListItem />
-                            <ListItem />
-                        </StickyContainer>
+                        {
+                            items.map(item => {
+                                return renderItem(item);
+                            })
+                        }
                     </DataList>
                 </CardBody>
             </Card>
         );
-    }
-}
+};
 
 export default NestedInputDataList;
