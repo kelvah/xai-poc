@@ -297,26 +297,31 @@ const loanProductsInput = {
     data: {
         creditScore: {
             label: "Credit Score",
-            value: 738
+            value: 738,
+            impact: true
         },
         downPayment: {
             label: "Down Payment",
-            value: 70000
+            value: 70000,
+            impact: true
         },
         property: {
             label: "Property",
             children: {
                 purchasePrice: {
                     label: "Purchase Price",
-                    value: 34000
+                    value: 34000,
+                    impact: true
                 },
                 monthlyTaxPayment: {
                     label: "Monthly Tax Payment",
-                    value: 2000
+                    value: 2000,
+                    impact: true
                 },
                 monthlyInsurancePayment: {
                     label: "Monthly Insurance Payment",
-                    value: 200
+                    value: 200,
+                    impact: true
                 },
                 monthlyHoaPayment: {
                     label: "Monthly HOA Payment",
@@ -335,11 +340,13 @@ const loanProductsInput = {
                         },
                         city: {
                             label: "City",
-                            value: "Malibu"
+                            value: "Malibu",
+                            impact: true
                         },
                         state: {
                             label: "State",
-                            value: "CA"
+                            value: "CA",
+                            impact: true
                         },
                         zip: {
                             label: "ZIP",
@@ -354,7 +361,8 @@ const loanProductsInput = {
             children: {
                 name: {
                     label: "Full Name",
-                    value: "Jim Osterberg"
+                    value: "Jim Osterberg",
+                    impact: true
                 },
                 taxId: {
                     label: "Tax ID",
@@ -362,7 +370,8 @@ const loanProductsInput = {
                 },
                 employmentIncome: {
                     label: "Employment Income",
-                    value: 99000
+                    value: 99000,
+                    impact: true
                 },
                 otherIncome: {
                     label: "Other Income",
@@ -378,11 +387,13 @@ const loanProductsInput = {
                             },
                             institutionAccount: {
                                 label: "Institution Account or Description",
-                                value: "Chase"
+                                value: "Chase",
+                                impact: true
                             },
                             value: {
                                 label: "Value",
-                                value: 45000
+                                value: 45000,
+                                impact: true
                             }
                         },
                         {
@@ -396,7 +407,8 @@ const loanProductsInput = {
                             },
                             value: {
                                 label: "Value",
-                                value: 33000
+                                value: 33000,
+                                impact: true
                             }
                         }
                     ]
@@ -417,11 +429,13 @@ const loanProductsInput = {
                     },
                     monthlyPayment: {
                         label: "Monthly Payment",
-                        value: 300
+                        value: 300,
+                        impact: true
                     },
                     balance: {
                         label: "Balance",
-                        value: 0
+                        value: 0,
+                        impact: true
                     },
                     toBePaiedOff: {
                         label: "To be paid off",
@@ -435,11 +449,13 @@ const loanProductsInput = {
                     },
                     payee: {
                         label: "Payee",
-                        value: "BMW Finance"
+                        value: "BMW Finance",
+                        impact: true
                     },
                     monthlyPayment: {
                         label: "Monthly Payment",
-                        value: 450
+                        value: 450,
+                        impact: true
                     },
                     balance: {
                         label: "Balance",
@@ -462,7 +478,8 @@ const loanProductsInput = {
                     },
                     customerRating: {
                         label: "Customer Rating",
-                        value: 4.2
+                        value: 4.2,
+                        impact: true
                     }
                 },
                 {
@@ -472,7 +489,8 @@ const loanProductsInput = {
                     },
                     customerRating: {
                         label: "Customer Rating",
-                        value: 3.6
+                        value: 3.6,
+                        impact: true
                     }
                 },
                 {
@@ -482,7 +500,8 @@ const loanProductsInput = {
                     },
                     customerRating: {
                         label: "Customer Rating",
-                        value: 4.06
+                        value: 4.06,
+                        impact: true
                     }
                 }
             ]

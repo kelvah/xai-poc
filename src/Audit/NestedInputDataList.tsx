@@ -26,7 +26,7 @@ const ItemsSubList = (props:{itemsList: { [key: string]: itemObject }}) => {
     return (
       <DataListItem aria-labelledby={""} className={"category__sublist"}>
           <DataList aria-label={""} className={"category__sublist__item"}>
-              {elements.map(item => <InputValue inputLabel={item.label} inputValue={item.value} key={Math.floor(Math.random() * 10000)}/>)
+              {elements.map(item => <InputValue inputLabel={item.label} inputValue={item.value} hasEffect={item.impact} key={Math.floor(Math.random() * 10000)}/>)
               }
           </DataList>
       </DataListItem>
@@ -74,13 +74,14 @@ type itemObject = {
     label: string,
     value?: string | number,
     children?: { [key: string]: itemObject },
-    list?: { [key: string]: object }[]
+    list?: { [key: string]: object }[],
+    impact?: boolean | number
 }
 let itemCategory = "";
 const renderItem = (item:itemObject, category?:string) => {
     if (item.hasOwnProperty('value')) {
         let key = Math.floor(Math.random() * 10000);
-        return <InputValue inputLabel={item.label} inputValue={item.value} hasEffect={true} key={key} />
+        return <InputValue inputLabel={item.label} inputValue={item.value} hasEffect={item.impact} key={key} />
 
     }
     if (item.hasOwnProperty('children')) {
