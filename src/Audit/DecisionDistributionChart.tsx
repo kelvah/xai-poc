@@ -19,84 +19,73 @@ let chartData = [
 
 const DecisionDistributionChart = () => {
     return (
-        <>
-            <Card>
-                <CardHeader>
-                    <Title headingLevel="h3" size="2xl">
-                        Decision distribution (last 90 days)
-                    </Title>
-                </CardHeader>
-                <CardBody>
-                    <VictoryChart
-                        theme={VictoryTheme.material}
-                        height={130}
-                        padding={{top: 10, right:30, bottom: 30, left: 40}}
-                    >
-                        <VictoryLine
-                            style={{
-                                data: { stroke: "var(--pf-global--info-color--200)" },
-                                parent: { border: "1px solid #ccc"}
-                            }}
-                            data={chartData}
-                            interpolation="basis"
-                        />
-                        <VictoryAxis
-                            dependentAxis
-                            axisValue={0.46}
-                            style={{
-                                axis: {
-                                    stroke: "var(--pf-global--palette--orange-200)"
-                                },
-                                ticks: {
-                                    stroke: "transparent"
-                                },
-                                tickLabels: { fill: "none" },
-                                grid: {
-                                    stroke: "transparent"
-                                }
-                            }}
-                        />
-                        <VictoryAxis
-                            label="Scores"
-                            style={{
-                                tickLabels: {
-                                    fontSize: 8,
-                                    fontFamily: "overpass",
-                                    padding: 4
-                                },
-                                grid: {
-                                    stroke: "transparent"
-                                },
-                                axisLabel: {
-                                    fontFamily: "overpass",
-                                    fontSize: 8,
-                                    padding: 20
-                                }
-                            }}
-                        />
-                        <VictoryAxis
-                            dependentAxis
-                            label="Occurrences"
-                            style={{
-                                tickLabels: {
-                                    fontSize: 8,
-                                    fontFamily: "overpass",
-                                    padding: 4
-                                },
-                                grid: {
-                                    stroke: "transparent",
-                                },
-                                axisLabel: {
-                                    fontFamily: "overpass",
-                                    fontSize: 8,
-                                    padding: 25
-                                }
-                            }}
-                        />
-                    </VictoryChart>
-                </CardBody>
-            </Card>
-        </>
+        <VictoryChart
+            theme={VictoryTheme.material}
+            height={130}
+            padding={{top: 10, right:30, bottom: 30, left: 40}}
+        >
+            <VictoryLine
+                style={{
+                    data: { stroke: "var(--pf-global--info-color--200)" },
+                    parent: { border: "1px solid #ccc"}
+                }}
+                data={chartData}
+                interpolation="basis"
+            />
+            <VictoryAxis
+                dependentAxis
+                axisValue={0.46}
+                style={{
+                    axis: {
+                        stroke: "var(--pf-global--palette--orange-200)"
+                    },
+                    ticks: {
+                        stroke: "transparent"
+                    },
+                    tickLabels: { fill: "none" },
+                    grid: {
+                        stroke: "transparent"
+                    }
+                }}
+            />
+            <VictoryAxis
+                label="Scores"
+                style={{
+                    tickLabels: {
+                        fontSize: 8,
+                        fontFamily: "overpass",
+                        padding: 4
+                    },
+                    grid: {
+                        stroke: "transparent"
+                    },
+                    axisLabel: {
+                        fontFamily: "overpass",
+                        fontSize: 8,
+                        padding: 20
+                    }
+                }}
+            />
+            <VictoryAxis
+                dependentAxis
+                label="Decisions"
+                style={{
+                    tickLabels: {
+                        fontSize: 8,
+                        fontFamily: "overpass",
+                        padding: 4
+                    },
+                    grid: {
+                        stroke: "transparent",
+                    },
+                    axisLabel: {
+                        fontFamily: "overpass",
+                        fontSize: 8,
+                        padding: 25
+                    }
+                }}
+            />
+        </VictoryChart>
     )
 };
 

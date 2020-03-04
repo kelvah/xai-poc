@@ -8,7 +8,7 @@ type propsType = {
     }
 }
 
-const DecisionOutput = (props: propsType) => {
+const SingleDecisionOutput = (props: propsType) => {
     let {score, outcome} = props.decision;
     let indicatorPosX = score*200;
     return (
@@ -38,4 +38,4 @@ const DecisionOutput = (props: propsType) => {
     )
 };
 
-export default DecisionOutput;
+export default SingleDecisionOutput;

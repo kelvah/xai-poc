@@ -13,7 +13,7 @@ import {
 } from "@patternfly/react-core";
 import { RebalanceIcon } from '@patternfly/react-icons';
 import { StickyContainer, Sticky } from 'react-sticky';
-import loanProductsInput from './../Mocks/loan-products-nested-input-data';
+import loanProductsInput from '../Mocks/loan-products-nested-input-data';
 
 const ItemsSubList = (props:{itemsList: { [key: string]: itemObject }}) => {
     const {itemsList} = props;
