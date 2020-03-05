@@ -14,7 +14,7 @@ const OutcomeList = () => {
                     <Title headingLevel="h5" size="lg" className={"outcome-list__item__title"}>
                         Lender B - ARM5/1-Standard
                     </Title>
-                    <Grid gutter={"md"}>
+                    <Grid>
                         <GridItem span={4}>{"Note Amount"}</GridItem>
                         <GridItem span={8}>{"$273,775.90"}</GridItem>
                         <GridItem span={4}>{"Recommendation"}</GridItem>
@@ -23,9 +23,9 @@ const OutcomeList = () => {
                 </li>
                 <li className={"outcome-list__item"}>
                     <Title headingLevel="h5" size="lg" className={"outcome-list__item__title"}>
-                        Lender B - ARM5/1-Standard
+                        Lender C - Fixed30-Standard
                     </Title>
-                    <Grid gutter={"md"}>
+                    <Grid>
                         <GridItem span={4}>{"Note Amount"}</GridItem>
                         <GridItem span={8}>{"$273,775.90"}</GridItem>
                         <GridItem span={4}>{"Recommendation"}</GridItem>
@@ -34,46 +34,46 @@ const OutcomeList = () => {
                 </li>
                 <li className={"outcome-list__item"}>
                     <Title headingLevel="h5" size="lg" className={"outcome-list__item__title"}>
-                        Lender B - ARM5/1-Standard
+                        Lender B - ARM5/1-NoPoints
                     </Title>
-                    <Grid gutter={"md"}>
+                    <Grid>
                         <GridItem span={4}>{"Note Amount"}</GridItem>
                         <GridItem span={8}>{"$273,775.90"}</GridItem>
                         <GridItem span={4}>{"Recommendation"}</GridItem>
-                        <GridItem span={8}>{"Best"}</GridItem>
+                        <GridItem span={8}>{"Good"}</GridItem>
                     </Grid>
                 </li>
                 <li className={"outcome-list__item"}>
                     <Title headingLevel="h5" size="lg" className={"outcome-list__item__title"}>
-                        Lender B - ARM5/1-Standard
+                        Lender A - Fixed30-NoPoints
                     </Title>
-                    <Grid gutter={"md"}>
+                    <Grid>
                         <GridItem span={4}>{"Note Amount"}</GridItem>
                         <GridItem span={8}>{"$273,775.90"}</GridItem>
                         <GridItem span={4}>{"Recommendation"}</GridItem>
-                        <GridItem span={8}>{"Best"}</GridItem>
+                        <GridItem span={8}>{"Good"}</GridItem>
                     </Grid>
                 </li>
                 <li className={"outcome-list__item"}>
                     <Title headingLevel="h5" size="lg" className={"outcome-list__item__title"}>
-                        Lender B - ARM5/1-Standard
+                        Lender C - Fixed15-Standard
                     </Title>
-                    <Grid gutter={"md"}>
+                    <Grid>
                         <GridItem span={4}>{"Note Amount"}</GridItem>
                         <GridItem span={8}>{"$273,775.90"}</GridItem>
                         <GridItem span={4}>{"Recommendation"}</GridItem>
-                        <GridItem span={8}>{"Best"}</GridItem>
+                        <GridItem span={8}>{"Good"}</GridItem>
                     </Grid>
                 </li>
                 <li className={"outcome-list__item"}>
                     <Title headingLevel="h5" size="lg" className={"outcome-list__item__title"}>
-                        Lender B - ARM5/1-Standard
+                        Lender A - Fixed15-NoPoints
                     </Title>
-                    <Grid gutter={"md"}>
+                    <Grid>
                         <GridItem span={4}>{"Note Amount"}</GridItem>
                         <GridItem span={8}>{"$273,775.90"}</GridItem>
                         <GridItem span={4}>{"Recommendation"}</GridItem>
-                        <GridItem span={8}>{"Best"}</GridItem>
+                        <GridItem span={8}>{"Good"}</GridItem>
                     </Grid>
                 </li>
 

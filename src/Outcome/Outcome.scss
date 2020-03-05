@@ -11,9 +11,12 @@
     border-radius: 3px;
     padding: var(--pf-global--spacer--md);
     &__title {
-      margin-bottom: var(--pf-global--spacer--md);
+      margin-bottom: var(--pf-global--spacer--lg);
       padding-bottom: var(--pf-global--spacer--sm);
       border-bottom: 1px solid lightgray;
+    }
+    .pf-l-grid__item {
+      margin-bottom: var(--pf-global--spacer--sm);
     }
   }
 }
