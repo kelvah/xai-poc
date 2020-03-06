@@ -16,6 +16,7 @@ import {
 import AuditDetailOverview from "../AuditOverview/AuditDetailOverview";
 import InputData from "../InputData/InputData";
 import Explanation from "../Explanation/Explanation";
+import ModelLookup from "../ModelLookup/ModelLookup";
 
 
 const AuditDetail = () => {
@@ -25,7 +26,7 @@ const AuditDetail = () => {
         { url: "/overview", desc: "Overview" },
         { url: "/explanation", desc: "Explanation" },
         { url: "/input-data", desc: "Input Data" },
-        { url: "model-lookup", desc: "Model Lookup"}
+        { url: "/model-lookup", desc: "Model Lookup"}
         ];
     return (
         <>
@@ -53,6 +54,9 @@ const AuditDetail = () => {
                 </Route>
                 <Route path={`${path}/explanation`}>
                     <Explanation />
+                </Route>
+                <Route path={`${path}/model-lookup`}>
+                    <ModelLookup />
                 </Route>
                 <Route render={() => <Redirect to={`${location.pathname}/overview`}/>}/>
             </Switch>
