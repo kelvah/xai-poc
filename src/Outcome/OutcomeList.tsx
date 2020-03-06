@@ -35,10 +35,10 @@ const OutcomeListAttributes = (props:{item:{[index: string]:itemObject}, titlePr
         <Grid>
             {attributes.map((item, index) => {
                 return (
-                    <>
+                    <React.Fragment key={`fragment-${index}`}>
                         <GridItem span={4} key={`item-label-${index}`}>{item.label}</GridItem>
                         <GridItem span={8} key={`item-value-${index}`}>{item.value}</GridItem>
-                    </>
+                    </React.Fragment>
                   )
                 }
             )}

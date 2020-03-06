@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
+    Button,
     Card,
     CardBody,
     CardHeader,
     Grid,
-    GridItem,
+    GridItem, Modal,
     PageSection,
     Stack,
     StackItem,
@@ -15,6 +16,10 @@ import FeaturesTornadoChart from "../Audit/FeaturesTornadoChart";
 import NestedInputDataList from "../InputData/NestedInputDataList";
 
 const Explanation = () => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const handleModalToggle = () => {
+        setIsModalOpen(!isModalOpen);
+    };
     return (
         <PageSection isFilled={true}>
             <Grid gutter="md">
@@ -37,7 +42,35 @@ const Explanation = () => {
                 <GridItem span={6}>
                     <Stack gutter="md">
                         <StackItem>
-                            <FeaturesTornadoChart />
+                            <Card>
+                                <CardHeader>
+                                    <Title headingLevel="h3" size="2xl">
+                                        Top Features Explanation
+                                    </Title>
+                                </CardHeader>
+                                <CardBody>
+                                    <FeaturesTornadoChart onlyTopFeatures={true} />
+                                    <div style={{textAlign: "right"}}>
+                                        <Button variant="link" onClick={handleModalToggle}>
+                                            View Complete Chart
+                                        </Button>
+                                    </div>
+                                    <Modal
+                                        width={'80%'}
+                                        title="Features Explanation"
+                                        isOpen={isModalOpen}
+                                        onClose={handleModalToggle}
+                                        actions={[
+                                            <Button key="close" onClick={handleModalToggle}>
+                                                Close
+                                            </Button>
+                                        ]}
+                                        isFooterLeftAligned
+                                    >
+                                        <FeaturesTornadoChart />
+                                    </Modal>
+                                </CardBody>
+                            </Card>
                         </StackItem>
                         <StackItem>
                             <NestedInputDataList showOnlyAffecting={true}/>
