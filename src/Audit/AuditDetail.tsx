@@ -13,8 +13,9 @@ import {
     useRouteMatch,
     Redirect, useLocation
 } from "react-router-dom";
-import AuditDetailOverview from "./AuditDetailOverview";
+import AuditDetailOverview from "../AuditOverview/AuditDetailOverview";
 import InputData from "../InputData/InputData";
+import Explanation from "../Explanation/Explanation";
 
 
 const AuditDetail = () => {
@@ -44,16 +45,17 @@ const AuditDetail = () => {
                 </Nav>
             </PageSection>
             <Switch>
-
                 <Route path={`${path}/overview`}>
                     <AuditDetailOverview/>
                 </Route>
                 <Route path={`${path}/input-data`}>
                     <InputData />
                 </Route>
+                <Route path={`${path}/explanation`}>
+                    <Explanation />
+                </Route>
                 <Route render={() => <Redirect to={`${location.pathname}/overview`}/>}/>
             </Switch>
-
         </>
     )
 

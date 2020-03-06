@@ -138,9 +138,9 @@ const renderItem = (item:itemObject, category?:string) => {
         )
     }
 };
-const NestedInputDataList = () => {
-
-    const [showAffectingInput, setShowAffectingInput] = useState(false);
+const NestedInputDataList = (props:{showOnlyAffecting?: boolean}) => {
+    const {showOnlyAffecting} = props || false;
+    const [showAffectingInput, setShowAffectingInput] = useState(showOnlyAffecting);
 
     const affectingInputChange = (isChecked:boolean) => {
         setShowAffectingInput(isChecked);
@@ -160,22 +160,29 @@ const NestedInputDataList = () => {
                     </Title>
                 </CardHeader>
                 <CardBody>
-                    <Flex breakpointMods={[{modifier: FlexModifiers["align-items-flex-start"]}, {modifier: FlexModifiers["space-items-sm"]}]}>
-                        <FlexItem>
-                            <RebalanceIcon style={{fontSize: 18/16 + "em"}}/>
-                        </FlexItem>
-                        <FlexItem>
-                            <span>Show only features affecting the outcome</span>
-                        </FlexItem>
-                        <FlexItem>
-                            <Switch
-                                id="affecting-features"
-                                className="input-data__affecting-switch"
-                                isChecked={showAffectingInput}
-                                onChange={affectingInputChange}
-                            />
-                        </FlexItem>
-                    </Flex>
+                    {
+                        !showOnlyAffecting &&
+                        <Flex
+                            breakpointMods={[
+                                {modifier: FlexModifiers["align-items-flex-start"]},
+                                {modifier: FlexModifiers["space-items-sm"]}]}
+                        >
+                            <FlexItem>
+                                <RebalanceIcon style={{fontSize: 18 / 16 + "em"}}/>
+                            </FlexItem>
+                            <FlexItem>
+                                <span>Show only features affecting the outcome</span>
+                            </FlexItem>
+                            <FlexItem>
+                                <Switch
+                                    id="affecting-features"
+                                    className="input-data__affecting-switch"
+                                    isChecked={showAffectingInput}
+                                    onChange={affectingInputChange}
+                                />
+                            </FlexItem>
+                        </Flex>
+                    }
                     <DataList aria-label="Simple data list example" className={filterClass}>
                         {
                             items.map(item => {

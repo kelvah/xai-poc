@@ -8,20 +8,20 @@ import {
     StackItem, Title
 } from "@patternfly/react-core";
 import NestedInputDataList from "../InputData/NestedInputDataList";
-import SingleDecisionOutput from "./SingleDecisionOutput";
+import SingleDecisionOutput from "../Audit/SingleDecisionOutput";
 import DecisionOutputData from "../Mocks/decision-outcome-mock";
-import ModelSummary from "./ModelSummary";
-import FeaturesTornadoChart from "./FeaturesTornadoChart";
-import DecisionDistributionChart from "./DecisionDistributionChart";
-import ApplicationOverview from "../AuditOverview/ApplicationOverview";
-import ModelOverview from "../AuditOverview/ModelOverview";
+import ModelSummary from "../Audit/ModelSummary";
+import FeaturesTornadoChart from "../Audit/FeaturesTornadoChart";
+import DecisionDistributionChart from "../Audit/DecisionDistributionChart";
+import ApplicationOverview from "./ApplicationOverview";
+import ModelOverview from "./ModelOverview";
 import OutcomeList from "../Outcome/OutcomeList";
 
 const AuditDetailOverview = () => {
     return (
         <PageSection isFilled={true}>
             <Grid gutter="md">
-                <GridItem span={6} rowSpan={3}>
+                <GridItem span={6}>
                     <Stack gutter={"md"}>
                         <StackItem>
                             <ApplicationOverview />
@@ -49,7 +49,7 @@ const AuditDetailOverview = () => {
                                     </Title>
                                 </CardHeader>
                                 <CardBody>
-                                    <OutcomeList />
+                                    <OutcomeList allAttributes={false} />
                                 </CardBody>
                             </Card>
                         </StackItem>
