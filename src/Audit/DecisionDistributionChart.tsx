@@ -1,6 +1,5 @@
 import React from "react";
 import {VictoryChart, VictoryLine, VictoryTheme, VictoryAxis} from "victory";
-import {Card, CardBody, CardHeader, Title} from "@patternfly/react-core";
 
 let chartData = [
     { x: 0, y: 0 },

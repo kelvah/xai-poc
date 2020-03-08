@@ -1,15 +1,13 @@
 import React from 'react';
-import {
-    PageSection
-} from "@patternfly/react-core";
+import InputDataBrowser from "./InputDataBrowser";
+import loanProductsInputScores from '../Mocks/loan-products-input-data-with-scores';
+import {PageSection, PageSectionVariants} from "@patternfly/react-core";
 
 const InputData = () => {
     return (
-        <>
-            <PageSection isFilled={true}>
-                <h1>input data stub</h1>
-            </PageSection>
-        </>
+        <PageSection variant={PageSectionVariants.light}>
+            <InputDataBrowser inputData={loanProductsInputScores.data}/>
+        </PageSection>
     );
 };
 

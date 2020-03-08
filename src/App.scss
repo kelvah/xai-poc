@@ -1,3 +1,10 @@
+#root {
+  display: block;
+  min-height: 100vh;
+  & > .pf-c-page {
+    min-height: 100vh;
+  }
+}
 .App-header .pf-c-title {
   --pf-c-title--m-4xl--FontSize: 3rem;
 }
@@ -125,7 +132,6 @@ $danger-color: #f7923d;
       font-size: 10px;
       left: 0;
       bottom: -13px;
-      display: none;
     }
   }
   &__icons {
