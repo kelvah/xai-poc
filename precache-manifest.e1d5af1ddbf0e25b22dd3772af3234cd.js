@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "e90d811a0369bbfc361ac76df56cd9de",
+    "revision": "b5003f1aa709bd92dbe7a40b530215e6",
     "url": "/xai-poc/index.html"
   },
   {
@@ -8,8 +8,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/xai-poc/static/css/2.e766f3da.chunk.css"
   },
   {
-    "revision": "9c67f7065f6ee1a354fe",
-    "url": "/xai-poc/static/css/main.bbe182a0.chunk.css"
+    "revision": "f17bd5ffaf28c4d7e429",
+    "url": "/xai-poc/static/css/main.a18a6f43.chunk.css"
   },
   {
     "revision": "3db787ff1da84f66cf79",
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/xai-poc/static/js/2.669b06f4.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "9c67f7065f6ee1a354fe",
-    "url": "/xai-poc/static/js/main.9d117e13.chunk.js"
+    "revision": "f17bd5ffaf28c4d7e429",
+    "url": "/xai-poc/static/js/main.b78ba5bc.chunk.js"
   },
   {
     "revision": "37bbe734a599aa2eeb98",
