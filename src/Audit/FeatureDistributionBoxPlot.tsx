@@ -17,7 +17,7 @@ const FeatureDistributionBoxPlot = () => {
         <div style={{
             width: "220px",
             marginTop: 0,
-            paddingTop: 6
+            paddingTop: 0
         }}>
             <VictoryChart
                 padding={{left: 10, right: 10, bottom: 20}}

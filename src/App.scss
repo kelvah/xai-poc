@@ -154,6 +154,10 @@ $danger-color: #f7923d;
       visibility: hidden;
     }
   }
+  &__score {
+    font-weight: bold;
+    color: var(--pf-global--info-color--100);
+  }
 }
 .category {
   &--sticky {

@@ -7,9 +7,10 @@ import {
     DataListItemCells,
     DataListItemRow
 } from "@patternfly/react-core";
-import { StickyContainer, Sticky } from 'react-sticky';
+
 import "./inputDataBrowser.scss";
 import FeatureDistributionBoxPlot from "../Audit/FeatureDistributionBoxPlot";
+import FeatureDistributionStackedChart from "./FeatureDistributionStackedChart";
 
 type itemObject = {
     label: string,
@@ -66,49 +67,72 @@ const InputValue = (props:any) => {
     const effectItemClass = (hasEffect === true) ? "input-data--affecting" : "input-data--ignored";
     //const effectIconClass = (hasEffect === true) ? "input-data__icons__effect" : "input-data__icons__no-effect";
     //const effectTitle = (hasEffect === true) ? "Impacting Feature" : "Not Impacting Feature";
+    const dataListCells = [];
+    dataListCells.push(<DataListCell width={3} key="primary content" className="input-data__wrap">
+        <span>{inputLabel}</span><span className="input-data__wrap__desc">{category}</span>
+    </DataListCell>);
+    dataListCells.push(<DataListCell width={2} key="secondary content"><span>{inputValue}</span></DataListCell>);
+    dataListCells.push((
+        <DataListCell width={1} key="score content" className="input-data__score">
+            {score}
+        </DataListCell>
+    ));
+    if (typeof inputValue === "number") {
+        dataListCells.push((
+            <DataListCell width={1} key="dist 1" className="input-data__wrap">
+                <span>640</span><span className="input-data__wrap__desc">Mean</span>
+            </DataListCell>
+        ));
+        dataListCells.push((
+            <DataListCell width={1} key="dist 2" className="input-data__wrap">
+                <span>75</span><span className="input-data__wrap__desc">Std Mean</span>
+            </DataListCell>
+        ));
+        dataListCells.push((
+            <DataListCell width={1} key="dist 3" className="input-data__wrap">
+                <span>900</span><span className="input-data__wrap__desc">High</span>
+            </DataListCell>
+        ));
+        dataListCells.push((
+            <DataListCell width={1} key="dist 4" className="input-data__wrap">
+                <span>500</span><span className="input-data__wrap__desc">Avg</span>
+            </DataListCell>
+        ));
+        dataListCells.push((
+            <DataListCell width={2} key="dist 5" style={{paddingTop: 0}}>
+                {<FeatureDistributionBoxPlot />}
+            </DataListCell>
+        ));
+    }
+    if (typeof inputValue === "string") {
+        dataListCells.push((
+            <DataListCell width={1} key="dist 1" className="input-data__wrap">
+                <span>15</span><span className="input-data__wrap__desc">Unique</span>
+            </DataListCell>
+        ));
+        dataListCells.push((
+            <DataListCell width={1} key="dist 2" className="input-data__wrap">
+                <span>Some Value</span><span className="input-data__wrap__desc">Top</span>
+            </DataListCell>
+        ));
+        dataListCells.push(<DataListCell key={"dist 4"}/>);
+        dataListCells.push((
+            <DataListCell width={1} key="dist 3" className="input-data__wrap">
+                <span>154</span><span className="input-data__wrap__desc">Top Freq</span>
+            </DataListCell>
+        ));
+        dataListCells.push((
+            <DataListCell width={2} key="dist 5" style={{paddingTop: 0}}>
+                {<FeatureDistributionStackedChart />}
+            </DataListCell>
+        ));
+    }
     return (
         <DataListItem aria-labelledby={"Input columns"} key={`input-item-heading`} className={`input-data__item ${effectItemClass}`}>
             <DataListItemRow>
-                <DataListItemCells dataListCells={[
-                    <DataListCell width={3} key="primary content" className="input-data__wrap">
-                        <span>{inputLabel}</span><span className="input-data__wrap__desc">{category}</span>
-                    </DataListCell>,
-                    <DataListCell width={2} key="secondary content"><span>{inputValue}</span></DataListCell>,
-                    <DataListCell width={1} key="score content">
-                        {score}
-                    </DataListCell>,
-                    <DataListCell width={1} key="dist 1" className="input-data__wrap">
-                        <span>640</span><span className="input-data__wrap__desc">Mean</span>
-                    </DataListCell>,
-                    <DataListCell width={1} key="dist 2" className="input-data__wrap">
-                        <span>75</span><span className="input-data__wrap__desc">Std Mean</span>
-                    </DataListCell>,
-                    <DataListCell width={1} key="dist 3" className="input-data__wrap">
-                        <span>900</span><span className="input-data__wrap__desc">High</span>
-                    </DataListCell>,
-                    <DataListCell width={1} key="dist 4" className="input-data__wrap">
-                        <span>500</span><span className="input-data__wrap__desc">Avg</span>
-                    </DataListCell>,
-                    <DataListCell width={2} key="dist 5" style={{paddingTop: 0}}>
-                        {<FeatureDistributionBoxPlot />}
-                    </DataListCell>,
-
-                ]}>
+                <DataListItemCells dataListCells={dataListCells}>
                 </DataListItemCells>
             </DataListItemRow>
-            {/*
-                        <DataListCell width={2} key="distribution content" style={{paddingTop: 0}}>
-                            <Flex style={{alignItems: "center"}}>
-                                <FlexItem className="input-data__wrap input-data__distribution-data"><span>640</span><span className="input-data__wrap__desc">Mean</span></FlexItem>
-                                <FlexItem className="input-data__wrap input-data__distribution-data"><span>75</span><span className="input-data__wrap__desc">Std Mean</span></FlexItem>
-                                <FlexItem className="input-data__wrap input-data__distribution-data"><span>900</span><span className="input-data__wrap__desc">High</span></FlexItem>
-                                <FlexItem className="input-data__wrap input-data__distribution-data"><span>500</span><span className="input-data__wrap__desc">Avg</span></FlexItem>
-                                <FlexItem className="input-data__wrap input-data__distribution-data">
-                                    <FeatureDistributionBoxPlot />
-                                </FlexItem>
-                            </Flex>
-                        </DataListCell>,
-                    */}
         </DataListItem>
     )
 };
@@ -132,16 +156,12 @@ const renderItem = (item:itemObject, category?:string) => {
             }
         }
         return (
-            <StickyContainer key={Math.floor(Math.random() * 10000)}>
-                <Sticky>
-                    {({ style, isSticky }) => (
-                        <div style={style} className={(isSticky ? 'category--sticky' : 'category')}>
-                            <CategoryLine categoryLabel={categoryLabel} />
-                        </div>
-                    )}
-                </Sticky>
+            <React.Fragment key={Math.floor(Math.random() * 10000)}>
+                <div className='category' >
+                    <CategoryLine categoryLabel={categoryLabel} />
+                </div>
                 {children.map(item => renderItem(item, item.label))}
-            </StickyContainer>
+            </React.Fragment>
         )
     }
     if (item.hasOwnProperty('list')) {
@@ -161,17 +181,13 @@ const renderItem = (item:itemObject, category?:string) => {
         }
 
         return (
-            <StickyContainer key={Math.floor(Math.random() * 10000)}>
-                <Sticky>
-                    {({ style, isSticky }) => (
-                        <div style={style} className={(isSticky ? 'category--sticky' : 'category')}><CategoryLine categoryLabel={categoryLabel} key={Math.random()} /></div>
-                    )}
-                </Sticky>
+            <React.Fragment key={Math.floor(Math.random() * 10000)}>
+                <div className='category'><CategoryLine categoryLabel={categoryLabel} key={Math.random()} /></div>
                 {listItems && listItems.map((item) => (
                         <ItemsSubList itemsList={item} key={Math.floor(Math.random() * 10000)} />
                     )
                 )}
-            </StickyContainer>
+            </React.Fragment>
         )
     }
 };
@@ -190,7 +206,7 @@ const InputDataBrowser = (props:{inputData:inputItems}) => {
         const items:itemObject[] = [];
         const categories = [];
         const rootSection:itemObject = {
-            label: "Main",
+            label: "Root",
             children: {}
         };
         for (let item in inputData) {
@@ -207,7 +223,7 @@ const InputDataBrowser = (props:{inputData:inputItems}) => {
         if (Object.keys(rootSection).length) {
             // if orphan properties has been found, add them to sections array and create "main" section
             items.unshift(rootSection);
-            categories.unshift("Main");
+            categories.unshift("Root");
         }
         setInputs(items);
         setCategories(categories);
@@ -221,7 +237,7 @@ const InputDataBrowser = (props:{inputData:inputItems}) => {
                 {categories.map((item, index) => (
                     <Button
                         type={"button"}
-                        variant={(index === viewSection) ? "control" : "control"}
+                        variant={(index === viewSection) ? "primary" : "control"}
                         isActive={(index === viewSection)}
                         key={`section-${index}`}
                         onClick={() => handleSectionSwitch(index)}>

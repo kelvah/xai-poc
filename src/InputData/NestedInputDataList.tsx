@@ -156,7 +156,7 @@ const NestedInputDataList = (props:{showOnlyAffecting?: boolean}) => {
             <Card>
                 <CardHeader>
                     <Title headingLevel="h3" size="2xl">
-                        Input Data
+                        Top Features List
                     </Title>
                 </CardHeader>
                 <CardBody>
