@@ -5,7 +5,7 @@ import {
     DataListCell,
     DataListItem,
     DataListItemCells,
-    DataListItemRow
+    DataListItemRow, Grid, GridItem
 } from "@patternfly/react-core";
 
 import "./inputDataBrowser.scss";
@@ -77,53 +77,47 @@ const InputValue = (props:any) => {
             {score}
         </DataListCell>
     ));
+
     if (typeof inputValue === "number") {
         dataListCells.push((
-            <DataListCell width={1} key="dist 1" className="input-data__wrap">
-                <span>640</span><span className="input-data__wrap__desc">Mean</span>
-            </DataListCell>
-        ));
-        dataListCells.push((
-            <DataListCell width={1} key="dist 2" className="input-data__wrap">
-                <span>75</span><span className="input-data__wrap__desc">Std Mean</span>
-            </DataListCell>
-        ));
-        dataListCells.push((
-            <DataListCell width={1} key="dist 3" className="input-data__wrap">
-                <span>900</span><span className="input-data__wrap__desc">High</span>
-            </DataListCell>
-        ));
-        dataListCells.push((
-            <DataListCell width={1} key="dist 4" className="input-data__wrap">
-                <span>500</span><span className="input-data__wrap__desc">Avg</span>
-            </DataListCell>
-        ));
-        dataListCells.push((
-            <DataListCell width={2} key="dist 5" style={{paddingTop: 0}}>
-                {<FeatureDistributionBoxPlot />}
+            <DataListCell width={5} key="dist 5" style={{paddingTop: 0}}>
+                <Grid className="input-browser__distribution">
+                    <GridItem span={2} className="input-data__wrap">
+                        <span>640</span><span className="input-data__wrap__desc">Mean</span>
+                    </GridItem>
+                    <GridItem span={2} className="input-data__wrap">
+                        <span>75</span><span className="input-data__wrap__desc">Std Mean</span>
+                    </GridItem>
+                    <GridItem span={2} className="input-data__wrap">
+                        <span>900</span><span className="input-data__wrap__desc">High</span>
+                    </GridItem>
+                    <GridItem span={2} className="input-data__wrap">
+                        <span>500</span><span className="input-data__wrap__desc">Avg</span>
+                    </GridItem>
+                    <GridItem span={4} className="input-data__wrap input-browser__distribution__chart">
+                        <FeatureDistributionBoxPlot />
+                    </GridItem>
+                </Grid>
             </DataListCell>
         ));
     }
     if (typeof inputValue === "string") {
         dataListCells.push((
-            <DataListCell width={1} key="dist 1" className="input-data__wrap">
-                <span>15</span><span className="input-data__wrap__desc">Unique</span>
-            </DataListCell>
-        ));
-        dataListCells.push((
-            <DataListCell width={1} key="dist 2" className="input-data__wrap">
-                <span>Some Value</span><span className="input-data__wrap__desc">Top</span>
-            </DataListCell>
-        ));
-        dataListCells.push(<DataListCell key={"dist 4"}/>);
-        dataListCells.push((
-            <DataListCell width={1} key="dist 3" className="input-data__wrap">
-                <span>154</span><span className="input-data__wrap__desc">Top Freq</span>
-            </DataListCell>
-        ));
-        dataListCells.push((
-            <DataListCell width={2} key="dist 5" style={{paddingTop: 0}}>
-                {<FeatureDistributionStackedChart />}
+            <DataListCell width={5} key="dist 5" style={{paddingTop: 0}}>
+                <Grid className="input-browser__distribution">
+                    <GridItem span={2} className="input-data__wrap">
+                        <span>15</span><span className="input-data__wrap__desc">Unique</span>
+                    </GridItem>
+                    <GridItem span={4} className="input-data__wrap">
+                        <span>Some Long Value</span><span className="input-data__wrap__desc">Top</span>
+                    </GridItem>
+                    <GridItem span={2} className="input-data__wrap">
+                        <span>154</span><span className="input-data__wrap__desc">Top Freq</span>
+                    </GridItem>
+                    <GridItem span={4} className="input-data__wrap input-browser__distribution__chart">
+                        <FeatureDistributionStackedChart />
+                    </GridItem>
+                </Grid>
             </DataListCell>
         ));
     }
@@ -252,11 +246,7 @@ const InputDataBrowser = (props:{inputData:inputItems}) => {
                             <DataListCell width={3} key="head 1"><span>Input Data</span></DataListCell>,
                             <DataListCell width={2} key="head 2"><span>Value</span></DataListCell>,
                             <DataListCell width={1} key="head 3"><span>Score</span></DataListCell>,
-                            <DataListCell width={1} key="head 4"><span>Distribution</span></DataListCell>,
-                            <DataListCell width={1} key="head 5"/>,
-                            <DataListCell width={1} key="head 6"/>,
-                            <DataListCell width={1} key="head 7"/>,
-                            <DataListCell width={2} key="head 8"/>
+                            <DataListCell width={5} key="head 4"><span>Distribution</span></DataListCell>,
                         ]}>
                         </DataListItemCells>
                     </DataListItemRow>

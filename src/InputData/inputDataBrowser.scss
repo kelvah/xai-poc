@@ -15,8 +15,16 @@
   &__browser {
     background-color: #c6c6c6;
   }
-  .category__heading {
-/*    background-color: #fff !important;
-    color: var(--pf-global--Color--100);*/
+  &__distribution {
+    .input-data__wrap {
+      padding-top: var(--pf-c-data-list__cell-cell--PaddingTop);
+      &__desc {
+        bottom: 10px;
+      }
+    }
+    &__chart {
+      // the only way I found to use the negative value of a css variable was to multiply it :(
+      margin-top: calc(var(--pf-c-data-list__cell-cell--PaddingTop) * -1);
+    }
   }
 }
