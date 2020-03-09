@@ -16,10 +16,11 @@ const FeatureDistributionBoxPlot = () => {
     return (
         <div style={{
             width: "220px",
-            marginTop: 15
+            marginTop: 0,
+            paddingTop: 6
         }}>
             <VictoryChart
-                padding={{left: 10, right: 10, bottom: 30}}
+                padding={{left: 10, right: 10, bottom: 20}}
                 domainPadding={5}
                 domain={{y: [min, max]}}
                 horizontal

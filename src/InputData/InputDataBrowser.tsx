@@ -9,6 +9,7 @@ import {
 } from "@patternfly/react-core";
 import { StickyContainer, Sticky } from 'react-sticky';
 import "./inputDataBrowser.scss";
+import FeatureDistributionBoxPlot from "../Audit/FeatureDistributionBoxPlot";
 
 type itemObject = {
     label: string,
@@ -69,16 +70,45 @@ const InputValue = (props:any) => {
         <DataListItem aria-labelledby={"Input columns"} key={`input-item-heading`} className={`input-data__item ${effectItemClass}`}>
             <DataListItemRow>
                 <DataListItemCells dataListCells={[
-                    <DataListCell key="primary content" className="input-data__wrap">
+                    <DataListCell width={3} key="primary content" className="input-data__wrap">
                         <span>{inputLabel}</span><span className="input-data__wrap__desc">{category}</span>
                     </DataListCell>,
-                    <DataListCell key="secondary content"><span>{inputValue}</span></DataListCell>,
-                    <DataListCell alignRight key="score content">
+                    <DataListCell width={2} key="secondary content"><span>{inputValue}</span></DataListCell>,
+                    <DataListCell width={1} key="score content">
                         {score}
-                    </DataListCell>
+                    </DataListCell>,
+                    <DataListCell width={1} key="dist 1" className="input-data__wrap">
+                        <span>640</span><span className="input-data__wrap__desc">Mean</span>
+                    </DataListCell>,
+                    <DataListCell width={1} key="dist 2" className="input-data__wrap">
+                        <span>75</span><span className="input-data__wrap__desc">Std Mean</span>
+                    </DataListCell>,
+                    <DataListCell width={1} key="dist 3" className="input-data__wrap">
+                        <span>900</span><span className="input-data__wrap__desc">High</span>
+                    </DataListCell>,
+                    <DataListCell width={1} key="dist 4" className="input-data__wrap">
+                        <span>500</span><span className="input-data__wrap__desc">Avg</span>
+                    </DataListCell>,
+                    <DataListCell width={2} key="dist 5" style={{paddingTop: 0}}>
+                        {<FeatureDistributionBoxPlot />}
+                    </DataListCell>,
+
                 ]}>
                 </DataListItemCells>
             </DataListItemRow>
+            {/*
+                        <DataListCell width={2} key="distribution content" style={{paddingTop: 0}}>
+                            <Flex style={{alignItems: "center"}}>
+                                <FlexItem className="input-data__wrap input-data__distribution-data"><span>640</span><span className="input-data__wrap__desc">Mean</span></FlexItem>
+                                <FlexItem className="input-data__wrap input-data__distribution-data"><span>75</span><span className="input-data__wrap__desc">Std Mean</span></FlexItem>
+                                <FlexItem className="input-data__wrap input-data__distribution-data"><span>900</span><span className="input-data__wrap__desc">High</span></FlexItem>
+                                <FlexItem className="input-data__wrap input-data__distribution-data"><span>500</span><span className="input-data__wrap__desc">Avg</span></FlexItem>
+                                <FlexItem className="input-data__wrap input-data__distribution-data">
+                                    <FeatureDistributionBoxPlot />
+                                </FlexItem>
+                            </Flex>
+                        </DataListCell>,
+                    */}
         </DataListItem>
     )
 };
@@ -187,11 +217,12 @@ const InputDataBrowser = (props:{inputData:inputItems}) => {
     return (
         <div className="input-browser">
             <div className="input-browser__section-list">
-                <span className="input-browser__section-list__label">Browse Section:</span>
+                <span className="input-browser__section-list__label">Browse Section</span>
                 {categories.map((item, index) => (
                     <Button
-                        variant={(index === viewSection) ? "primary" : "secondary"}
                         type={"button"}
+                        variant={(index === viewSection) ? "control" : "control"}
+                        isActive={(index === viewSection)}
                         key={`section-${index}`}
                         onClick={() => handleSectionSwitch(index)}>
                         {item}
@@ -199,6 +230,22 @@ const InputDataBrowser = (props:{inputData:inputItems}) => {
                 ))}
             </div>
             <DataList aria-label="Simple data list example">
+                <DataListItem aria-labelledby="header" key="header" className="input-browser__header">
+                    <DataListItemRow>
+                        <DataListItemCells dataListCells={[
+                            <DataListCell width={3} key="head 1"><span>Input Data</span></DataListCell>,
+                            <DataListCell width={2} key="head 2"><span>Value</span></DataListCell>,
+                            <DataListCell width={1} key="head 3"><span>Score</span></DataListCell>,
+                            <DataListCell width={1} key="head 4"><span>Distribution</span></DataListCell>,
+                            <DataListCell width={1} key="head 5"/>,
+                            <DataListCell width={1} key="head 6"/>,
+                            <DataListCell width={1} key="head 7"/>,
+                            <DataListCell width={2} key="head 8"/>
+                        ]}>
+                        </DataListItemCells>
+                    </DataListItemRow>
+                </DataListItem>
+
                 { inputs && renderItem(inputs[viewSection]) }
             </DataList>
         </div>
