@@ -1,6 +1,6 @@
 import React from 'react';
 import {Card, CardBody, CardHeader, Grid, GridItem, Title} from "@patternfly/react-core";
-import DecisionDistributionChart from "../Audit/DecisionDistributionChart";
+import RecommendationDistributionChart from "../ModelLookup/RecommendationDistributionChart";
 
 function ModelOverview() {
     return (
@@ -32,7 +32,8 @@ function ModelOverview() {
                         <Title headingLevel="h5" size="lg">
                             Decision Distribution (last 90 days)
                         </Title>
-                        <DecisionDistributionChart />
+                        {/* <DecisionDistributionChart /> */ }
+                        <RecommendationDistributionChart />
                     </GridItem>
                 </Grid>
             </CardBody>

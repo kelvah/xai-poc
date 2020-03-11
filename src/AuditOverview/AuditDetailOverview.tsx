@@ -12,7 +12,7 @@ import SingleDecisionOutput from "../Audit/SingleDecisionOutput";
 import DecisionOutputData from "../Mocks/decision-outcome-mock";
 import ModelSummary from "../Audit/ModelSummary";
 import FeaturesTornadoChart from "../Audit/FeaturesTornadoChart";
-import DecisionDistributionChart from "../Audit/DecisionDistributionChart";
+import DecisionDistributionChart from "../ModelLookup/DecisionDistributionChart";
 import ApplicationOverview from "./ApplicationOverview";
 import ModelOverview from "./ModelOverview";
 import OutcomeList from "../Outcome/OutcomeList";
