@@ -1,0 +1,11 @@
+.model-diagram {
+  .pf-c-modal-box__body {
+    overflow: hidden;
+  }
+  &__iframe {
+    iframe {
+      width: 100%;
+      height: 80vh;
+    }
+  }
+}
