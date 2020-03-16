@@ -1,12 +1,16 @@
 import React, {useState} from 'react';
 import {
+    Button,
     Select,
     SelectOption,
     SelectOptionObject,
-    SelectVariant,
-    Toolbar, ToolbarGroup,
-    ToolbarItem
+    SelectVariant
 } from "@patternfly/react-core";
+import {
+    DataToolbar,
+    DataToolbarContent,
+    DataToolbarItem
+} from "@patternfly/react-core/dist/js/experimental";
 
 type propsType = {
     version: {
@@ -37,11 +41,19 @@ const ModelVersionsBrowser = (props: propsType) => {
     };
 
     return (
-        <div className="model-diagram__switch">
-            <Toolbar>
-                <ToolbarGroup>
-                    <ToolbarItem>
+        <DataToolbar id="model-version-browser">
+            <DataToolbarContent>
+                <DataToolbarItem>
+                    <span>Version used:</span> <strong>{version.version}</strong>
+                </DataToolbarItem>
+                <DataToolbarItem>
+                    <span>Released on:</span> <strong>{version.releaseDate}</strong>
+                </DataToolbarItem>
+                <DataToolbarItem variant="separator" />
+                <DataToolbarItem variant="label">Browse History</DataToolbarItem>
+                <DataToolbarItem>
                         <Select
+                            id="model-version-history"
                             variant={SelectVariant.single}
                             aria-label="Select Input"
                             onToggle={onToggle}
@@ -60,10 +72,12 @@ const ModelVersionsBrowser = (props: propsType) => {
                                 >{`${option.version} - ${option.releaseDate}`}</SelectOption>
                             ))}
                         </Select>
-                    </ToolbarItem>
-                </ToolbarGroup>
-            </Toolbar>
-        </div>
+                </DataToolbarItem>
+                <DataToolbarItem variant="separator" />
+                <DataToolbarItem><Button variant="secondary">View Outcome</Button></DataToolbarItem>
+            </DataToolbarContent>
+
+        </DataToolbar>
     );
 };
 
