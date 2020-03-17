@@ -5,8 +5,14 @@
   }
 }
 
-.model-diagram {
+.model-version-browser {
+  &__history {
+    width: 220px;
+    font-family: monospace;
+  }
+}
 
+.model-diagram {
   &__iframe {
     position: relative;
     width: 100%;

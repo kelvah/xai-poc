@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {
-    Button,
     Select,
     SelectOption,
     SelectOptionObject,
@@ -12,6 +11,7 @@ import {
     DataToolbarItem
 } from "@patternfly/react-core/dist/js/experimental";
 import {IModelVersion} from "./types";
+import ModelOutcomeDialog from "./ModelOutcomeDialog";
 
 type propsType = {
     version: IModelVersion,
@@ -50,6 +50,7 @@ const ModelVersionsBrowser = (props: propsType) => {
                 <DataToolbarItem>
                         <Select
                             id="model-version-history"
+                            className="model-version-browser__history"
                             variant={SelectVariant.single}
                             aria-label="Select Input"
                             onToggle={onToggle}
@@ -71,7 +72,7 @@ const ModelVersionsBrowser = (props: propsType) => {
                 </DataToolbarItem>
                 <DataToolbarItem variant="separator" />
                 <DataToolbarItem>
-                    <Button variant="secondary">{(version.version === selectedVersion) ? "View Decision Outcome" : "Simulate Decision"}</Button>
+                    <ModelOutcomeDialog isOriginalVersion={(version.version === selectedVersion)} selectedVersion={selectedVersion}/>
                 </DataToolbarItem>
             </DataToolbarContent>
         </DataToolbar>
