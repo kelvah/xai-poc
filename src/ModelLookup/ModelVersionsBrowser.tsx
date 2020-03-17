@@ -11,24 +11,19 @@ import {
     DataToolbarContent,
     DataToolbarItem
 } from "@patternfly/react-core/dist/js/experimental";
+import {IModelVersion} from "./types";
 
 type propsType = {
-    version: {
-        version: string,
-        releaseDate: string,
-        authoredBy: string
-    },
-    history?: {
-        version: string,
-        releaseDate: string,
-        authoredBy: string
-    }[]
+    version: IModelVersion,
+    history?: IModelVersion[],
+    selectedVersion: string,
+    onVersionChange: (version:string) => void
 };
 
 const ModelVersionsBrowser = (props: propsType) => {
-    const { version, history } = props;
+    const { version, history, selectedVersion, onVersionChange } = props;
     const [isExpanded, setIsExpanded] = useState(false);
-    const [selected, setSelected] = useState<string | SelectOptionObject>(version.version);
+    //const [selected, setSelected] = useState<string | SelectOptionObject>(version.version);
     const [isDisabled] = useState(false);
     const versionId = "version-id";
     const onToggle = (isExpanded:boolean) => {
@@ -37,20 +32,21 @@ const ModelVersionsBrowser = (props: propsType) => {
 
     const onSelect = (event: React.MouseEvent | React.ChangeEvent<Element>, value:string | SelectOptionObject) => {
         setIsExpanded(false);
-        setSelected(value);
+        if (typeof value === "string") {
+            onVersionChange(value);
+        }
     };
 
     return (
         <DataToolbar id="model-version-browser">
             <DataToolbarContent>
                 <DataToolbarItem>
-                    <span>Version used:</span> <strong>{version.version}</strong>
-                </DataToolbarItem>
-                <DataToolbarItem>
-                    <span>Released on:</span> <strong>{version.releaseDate}</strong>
+                    <span>
+                        <span>Decision taken by model:</span> <strong>{version.version}</strong>, <span>released on:</span> <strong>{version.releaseDate}</strong>
+                    </span>
                 </DataToolbarItem>
                 <DataToolbarItem variant="separator" />
-                <DataToolbarItem variant="label">Browse History</DataToolbarItem>
+                <DataToolbarItem variant="label">Switch Model Version</DataToolbarItem>
                 <DataToolbarItem>
                         <Select
                             id="model-version-history"
@@ -58,7 +54,7 @@ const ModelVersionsBrowser = (props: propsType) => {
                             aria-label="Select Input"
                             onToggle={onToggle}
                             onSelect={onSelect}
-                            selections={selected}
+                            selections={selectedVersion}
                             isExpanded={isExpanded}
                             ariaLabelledBy={versionId}
                             isDisabled={isDisabled}
@@ -68,15 +64,14 @@ const ModelVersionsBrowser = (props: propsType) => {
                                 <SelectOption
                                     key={index}
                                     value={option.version}
-                                    isSelected={(option.version === selected)}
+                                    isSelected={(option.version === selectedVersion)}
                                 >{`${option.version} - ${option.releaseDate}`}</SelectOption>
                             ))}
                         </Select>
                 </DataToolbarItem>
                 <DataToolbarItem variant="separator" />
-                <DataToolbarItem><Button variant="secondary">View Outcome</Button></DataToolbarItem>
+                <DataToolbarItem><Button variant="secondary">View Decision Outcome</Button></DataToolbarItem>
             </DataToolbarContent>
-
         </DataToolbar>
     );
 };

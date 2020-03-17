@@ -1,10 +1,11 @@
 import React from 'react';
 
 
-const ModelDiagram = () => {
-
+const ModelDiagram = (props:{selectedVersion: string}) => {
+    const {selectedVersion} = props;
+    const editorUrl = "https://kiegroup.github.io/kogito-online/?file=https://raw.githubusercontent.com/kiegroup/kogito-tooling/master/packages/online-editor/static/samples/sample.bpmn#/editor/bpmn";
     const kogitoIframe = () => {
-        return {__html: `<iframe src="https://kiegroup.github.io/kogito-online/?file=https://raw.githubusercontent.com/kiegroup/kogito-tooling/master/packages/online-editor/static/samples/sample.bpmn#/editor/bpmn"></iframe>`};
+        return {__html: `<iframe src=${editorUrl} data-key="${selectedVersion}"></iframe>`};
     };
 
     return (

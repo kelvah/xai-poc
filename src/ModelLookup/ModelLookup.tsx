@@ -1,8 +1,9 @@
-import React from 'react';
-import {PageSection} from "@patternfly/react-core";
+import React, {useState} from 'react';
+import {Divider, PageSection, PageSectionVariants} from "@patternfly/react-core";
 import "./ModelLookup.scss";
 import ModelDiagram from "./ModelDiagram";
 import ModelVersionsBrowser from "./ModelVersionsBrowser";
+
 const modelInfo = {
     version: {
         version: "v5.0",
@@ -38,11 +39,22 @@ const modelInfo = {
     ]
 };
 const ModelLookup = () => {
+    const [selectedVersion, setSelectedVersion] = useState<string>(modelInfo.version.version);
     return (
         <>
+            <PageSection
+                variant={PageSectionVariants.light}
+                style={{paddingTop: 0, paddingBottom: 0}}>
+                <Divider />
+            </PageSection>
             <PageSection variant={"light"}>
-                <ModelVersionsBrowser version={modelInfo.version} history={modelInfo.history}/>
-                <ModelDiagram />
+                <ModelVersionsBrowser
+                    version={modelInfo.version}
+                    history={modelInfo.history}
+                    selectedVersion={selectedVersion}
+                    onVersionChange={setSelectedVersion}
+                />
+                <ModelDiagram selectedVersion={selectedVersion}/>
             </PageSection>
         </>
     );

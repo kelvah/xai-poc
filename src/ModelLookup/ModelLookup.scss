@@ -1,3 +1,10 @@
+.model-lookup {
+  &__desc {
+    margin-top: var(--pf-global--spacer--sm);
+    margin-bottom: var(--pf-global--spacer--lg);
+  }
+}
+
 .model-diagram {
   .pf-c-modal-box__body {
     overflow: hidden;
