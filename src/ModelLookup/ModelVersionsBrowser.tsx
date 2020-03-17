@@ -70,7 +70,9 @@ const ModelVersionsBrowser = (props: propsType) => {
                         </Select>
                 </DataToolbarItem>
                 <DataToolbarItem variant="separator" />
-                <DataToolbarItem><Button variant="secondary">View Decision Outcome</Button></DataToolbarItem>
+                <DataToolbarItem>
+                    <Button variant="secondary">{(version.version === selectedVersion) ? "View Decision Outcome" : "Simulate Decision"}</Button>
+                </DataToolbarItem>
             </DataToolbarContent>
         </DataToolbar>
     );
