@@ -3,7 +3,7 @@ import React from 'react';
 
 const ModelDiagram = (props:{selectedVersion: string}) => {
     const {selectedVersion} = props;
-    const editorUrl = "https://kiegroup.github.io/kogito-online/?file=https://raw.githubusercontent.com/kiegroup/kogito-tooling/master/packages/online-editor/static/samples/sample.bpmn#/editor/bpmn";
+    const editorUrl = "https://kiegroup.github.io/kogito-online/?file=https://raw.githubusercontent.com/kiegroup/kogito-tooling/master/packages/online-editor/static/samples/sample.dmn#/editor/dmn";
     const kogitoIframe = () => {
         return {__html: `<iframe src=${editorUrl} data-key="${selectedVersion}"></iframe>`};
     };
