@@ -17,10 +17,13 @@ const routes = [
     { path: "/dashboard", breadcrumb: "Domain Monitoring Dashboard" },
     { path: "/op-dashboard", breadcrumb: "Operational Monitoring Dashboard" },
     { path: "/audit", breadcrumb: "Audit Investigation" },
-    { path: "/audit/:id", breadcrumb: AuditDetailBreadcrumb },
+    { path: "/audit/:id/model-lookup", breadcrumb: "Model Lookup"},
+    { path: "/audit/:id/input-data", breadcrumb: "Input Data"},
+    { path: "/audit/:id", breadcrumb: AuditDetailBreadcrumb }
 ];
 
 const BreadcrumbList = withBreadcrumbs(routes)(({ breadcrumbs }) => {
+    console.log(breadcrumbs);
     return (
         <Breadcrumb>
             {breadcrumbs.map(({match, location, breadcrumb}) => {
@@ -28,7 +31,7 @@ const BreadcrumbList = withBreadcrumbs(routes)(({ breadcrumbs }) => {
                         <BreadcrumbItem
                             to={`#${match.url}`}
                             key={match.url}
-                            isActive={location.pathname === match.path}
+                            isActive={location.pathname === match.url}
                             >
                                 {breadcrumb}
                         </BreadcrumbItem>
