@@ -1,28 +1,28 @@
 {
   "files": {
     "main.css": "/xai-poc/static/css/main.5c40c7af.chunk.css",
-    "main.js": "/xai-poc/static/js/main.2a295ea7.chunk.js",
-    "main.js.map": "/xai-poc/static/js/main.2a295ea7.chunk.js.map",
+    "main.js": "/xai-poc/static/js/main.bf7dc1a1.chunk.js",
+    "main.js.map": "/xai-poc/static/js/main.bf7dc1a1.chunk.js.map",
     "runtime-main.js": "/xai-poc/static/js/runtime-main.1b49f7eb.js",
     "runtime-main.js.map": "/xai-poc/static/js/runtime-main.1b49f7eb.js.map",
-    "static/css/2.b5605163.chunk.css": "/xai-poc/static/css/2.b5605163.chunk.css",
-    "static/js/2.6244eda2.chunk.js": "/xai-poc/static/js/2.6244eda2.chunk.js",
-    "static/js/2.6244eda2.chunk.js.map": "/xai-poc/static/js/2.6244eda2.chunk.js.map",
+    "static/css/2.9a7fe48c.chunk.css": "/xai-poc/static/css/2.9a7fe48c.chunk.css",
+    "static/js/2.561c46e4.chunk.js": "/xai-poc/static/js/2.561c46e4.chunk.js",
+    "static/js/2.561c46e4.chunk.js.map": "/xai-poc/static/js/2.561c46e4.chunk.js.map",
     "index.html": "/xai-poc/index.html",
-    "precache-manifest.1888d1bf14c26240111ee4c82a7a3257.js": "/xai-poc/precache-manifest.1888d1bf14c26240111ee4c82a7a3257.js",
+    "precache-manifest.785acc7e4cc5790113f0941d160f5a87.js": "/xai-poc/precache-manifest.785acc7e4cc5790113f0941d160f5a87.js",
     "service-worker.js": "/xai-poc/service-worker.js",
-    "static/css/2.b5605163.chunk.css.map": "/xai-poc/static/css/2.b5605163.chunk.css.map",
+    "static/css/2.9a7fe48c.chunk.css.map": "/xai-poc/static/css/2.9a7fe48c.chunk.css.map",
     "static/css/main.5c40c7af.chunk.css.map": "/xai-poc/static/css/main.5c40c7af.chunk.css.map",
-    "static/js/2.6244eda2.chunk.js.LICENSE.txt": "/xai-poc/static/js/2.6244eda2.chunk.js.LICENSE.txt",
+    "static/js/2.561c46e4.chunk.js.LICENSE.txt": "/xai-poc/static/js/2.561c46e4.chunk.js.LICENSE.txt",
     "static/media/base.css": "/xai-poc/static/media/pficon.f907e666.ttf",
     "static/media/background-image.css": "/xai-poc/static/media/pfbg_768@2x.0099dea3.jpg",
     "static/media/about-modal-box.css": "/xai-poc/static/media/pfbg_992@2x.1423e11e.jpg"
   },
   "entrypoints": [
     "static/js/runtime-main.1b49f7eb.js",
-    "static/css/2.b5605163.chunk.css",
-    "static/js/2.6244eda2.chunk.js",
+    "static/css/2.9a7fe48c.chunk.css",
+    "static/js/2.561c46e4.chunk.js",
     "static/css/main.5c40c7af.chunk.css",
-    "static/js/main.2a295ea7.chunk.js"
+    "static/js/main.bf7dc1a1.chunk.js"
   ]
 }
