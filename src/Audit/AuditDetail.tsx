@@ -10,8 +10,10 @@ import {
     Switch,
     Route,
     Link,
-    useRouteMatch,
-    Redirect, useLocation
+    Redirect,
+    useLocation,
+    useParams,
+    useRouteMatch
 } from "react-router-dom";
 import AuditDetailOverview from "../AuditOverview/AuditDetailOverview";
 import InputData from "../InputData/InputData";
@@ -28,11 +30,12 @@ const AuditDetail = () => {
         { url: "/input-data", desc: "Input Data" },
         { url: "/model-lookup", desc: "Model Lookup"}
         ];
+    let { id } = useParams();
     return (
         <>
             <PageSection variant={PageSectionVariants.light}>
                 <TextContent>
-                    <Title size="4xl" headingLevel="h1">ID #1008 - Decision Detail</Title>
+                    <Title size="4xl" headingLevel="h1">ID #{id} - Decision Detail</Title>
                 </TextContent>
                 <Nav>
                     <NavList variant={NavVariants.tertiary}>

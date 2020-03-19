@@ -23,7 +23,6 @@ type propsType = {
 const ModelVersionsBrowser = (props: propsType) => {
     const { version, history, selectedVersion, onVersionChange } = props;
     const [isExpanded, setIsExpanded] = useState(false);
-    //const [selected, setSelected] = useState<string | SelectOptionObject>(version.version);
     const [isDisabled] = useState(false);
     const versionId = "version-id";
     const onToggle = (isExpanded:boolean) => {
