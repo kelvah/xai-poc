@@ -33,6 +33,7 @@ const RecommendationDistributionChart = () => {
                     labelComponent={
                         <VictoryTooltip
                             constrainToVisibleArea
+                            renderInPortal={false}
                             flyoutStyle={{
                                 strokeWidth: 1,
                                 fill: "#000"
