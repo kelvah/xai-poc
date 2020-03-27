@@ -4,7 +4,7 @@ import {Breadcrumb, BreadcrumbItem} from "@patternfly/react-core";
 
 type TAuditParams = { id: string };
 
-const AuditDetailBreadcrumb = (breadcrumb:BreadcrumbsProps<TAuditParams>) => {
+const AuditDetailBreadcrumb = (breadcrumb: BreadcrumbsProps<TAuditParams>) => {
     const { match } = breadcrumb;
     return (
         <span>ID #{match.params.id} Decision Detail</span>
@@ -23,7 +23,6 @@ const routes = [
 ];
 
 const BreadcrumbList = withBreadcrumbs(routes)(({ breadcrumbs }) => {
-    console.log(breadcrumbs);
     return (
         <Breadcrumb>
             {breadcrumbs.map(({match, location, breadcrumb}) => {
