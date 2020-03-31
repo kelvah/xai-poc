@@ -11,6 +11,7 @@ import {
 import {Table, TableHeader, TableBody, IRow} from "@patternfly/react-table";
 import {Link} from "react-router-dom";
 import AuditList from "../Mocks/decisions-list-mock";
+import SkeletonRows from "../Shared/Skeletons/SkeletonRows";
 
 const ApprovalState = (props:{result:string}) => {
     let className = "decision-outcome-badge decision-outcome-badge--" + props.result.toLocaleLowerCase();
@@ -36,13 +37,16 @@ rowData.map((item:IRow, index) => {
 });
 
 const Audit = () => {
+    const emptyRow = SkeletonRows(5, 8);
     const [columns] = useState(['ID', 'Subject Name', 'Date', 'Outcome', '']);
-    const [rows, setRows] = useState<IRow[]>([]);
+    const [rows, setRows] = useState<IRow[]>(emptyRow);
     const [searchString, setSearchString] = useState('');
     const [latestSearches] = useState(["1001", "1007", "1032"]);
 
     useEffect(() => {
-        setRows(rowData);
+        setTimeout(() => {
+            setRows(rowData);
+        }, 1500);
     }, []);
 
     const searchSubmit = (event:React.SyntheticEvent):void => {
