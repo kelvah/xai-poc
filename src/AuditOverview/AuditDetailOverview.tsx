@@ -7,12 +7,6 @@ import {
     Stack,
     StackItem, Title
 } from "@patternfly/react-core";
-import NestedInputDataList from "../InputData/NestedInputDataList";
-import SingleDecisionOutput from "../Audit/SingleDecisionOutput";
-import DecisionOutputData from "../Mocks/decision-outcome-mock";
-import ModelSummary from "../Audit/ModelSummary";
-import FeaturesTornadoChart from "../Audit/FeaturesTornadoChart";
-import DecisionDistributionChart from "../ModelLookup/DecisionDistributionChart";
 import ApplicationOverview from "./ApplicationOverview";
 import ModelOverview from "./ModelOverview";
 import OutcomeList from "../Outcome/OutcomeList";
@@ -29,14 +23,6 @@ const AuditDetailOverview = () => {
                         <StackItem>
                             <ModelOverview />
                         </StackItem>
-                        {/*
-                        <StackItem>
-                            <NestedInputDataList />
-                        </StackItem>
-                        <StackItem>
-                                <InputDataList inputData={LoanInputDetail}/>
-                        </StackItem>
-                        */}
                     </Stack>
                 </GridItem>
                 <GridItem span={6}>
@@ -53,33 +39,6 @@ const AuditDetailOverview = () => {
                                 </CardBody>
                             </Card>
                         </StackItem>
-                        {/*
-                        <StackItem>
-                            <Flex breakpointMods={[{modifier: FlexModifiers.grow}]}>
-                                <FlexItem style={{flex: "1", alignSelf: "stretch"}}>
-                                    <SingleDecisionOutput decision={DecisionOutputData}/>
-                                </FlexItem>
-                                <FlexItem style={{flex: "1", alignSelf: "stretch"}}>
-                                    <ModelSummary />
-                                </FlexItem>
-                            </Flex>
-                        </StackItem>
-                        <StackItem>
-                            <FeaturesTornadoChart/>
-                        </StackItem>
-                        <StackItem>
-                            <Card>
-                                <CardHeader>
-                                    <Title headingLevel="h3" size="2xl">
-                                        Decision distribution (last 90 days)
-                                    </Title>
-                                </CardHeader>
-                                <CardBody>
-                                    <DecisionDistributionChart />
-                                </CardBody>
-                            </Card>
-                        </StackItem>
-                        */}
                     </Stack>
                 </GridItem>
             </Grid>

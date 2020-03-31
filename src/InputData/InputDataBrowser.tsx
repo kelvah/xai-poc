@@ -9,7 +9,7 @@ import {
 } from "@patternfly/react-core";
 
 import "./inputDataBrowser.scss";
-import FeatureDistributionBoxPlot from "../Audit/FeatureDistributionBoxPlot";
+import FeatureDistributionBoxPlot from "./FeatureDistributionBoxPlot";
 import FeatureDistributionStackedChart from "./FeatureDistributionStackedChart";
 
 type itemObject = {

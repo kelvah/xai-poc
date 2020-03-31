@@ -10,8 +10,8 @@ import {
     DataListItemRow,
     Title
 } from "@patternfly/react-core";
-import FeatureDistribution from "../Audit/FeatureDistribution";
-import FeatureDistributionBoxPlot from "../Audit/FeatureDistributionBoxPlot";
+import FeatureDistribution from "./FeatureDistribution";
+import FeatureDistributionBoxPlot from "./FeatureDistributionBoxPlot";
 
 type inputDataProps = {
     inputData: inputElement[]

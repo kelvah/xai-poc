@@ -12,7 +12,7 @@ import {
     Title
 } from "@patternfly/react-core";
 import OutcomeList from "../Outcome/OutcomeList";
-import FeaturesTornadoChart from "../Audit/FeaturesTornadoChart";
+import FeaturesTornadoChart from "./FeaturesTornadoChart";
 import NestedInputDataList from "../InputData/NestedInputDataList";
 
 const Explanation = () => {

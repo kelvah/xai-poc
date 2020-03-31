@@ -1,7 +1,7 @@
 import React from "react";
 import {Card, CardBody, CardHeader, Title} from "@patternfly/react-core";
 
-const ModelSummary = () => {
+const ModelShortSummary = () => {
     return (
         <Card style={{height: "100%"}}>
             <CardHeader>
@@ -16,4 +16,4 @@ const ModelSummary = () => {
     )
 };
 
-export default ModelSummary;
+export default ModelShortSummary;
