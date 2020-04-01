@@ -37,7 +37,7 @@ rowData.map((item:IRow, index) => {
 });
 
 const Audit = () => {
-    const emptyRow = SkeletonRows(5, 8);
+    const emptyRow = SkeletonRows(5, 8, "decisionKey");
     const [columns] = useState(['ID', 'Subject Name', 'Date', 'Outcome', '']);
     const [rows, setRows] = useState<IRow[]>(emptyRow);
     const [searchString, setSearchString] = useState('');
