@@ -10,6 +10,8 @@ let generateDecisionsList = () => {
         decisionsArray.push({
             "id": id,
             "evaluationDate": evaluationDate,
+            "evaluationSucceeded": true,
+            "executorName": "Technical User",
             "decisions": [
                 {
                     "decisionId": "1",

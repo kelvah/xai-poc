@@ -13,11 +13,20 @@ import {Table, TableHeader, TableBody, IRow} from "@patternfly/react-table";
 import SkeletonRows from "../Shared/Skeletons/SkeletonRows";
 import {getDecisions} from "../Shared/Api/audit.api";
 import {IDecision} from "./types";
+import './Audit.scss';
 
-const ApprovalBadge = (props:{result:string}) => {
-    let className = "decision-outcome-badge decision-outcome-badge--" + props.result.toLocaleLowerCase();
+const ExecutionStatus = (props:{result:boolean}) => {
+    let className = "execution-status-badge execution-status-badge--";
+    let status;
+    if (props.result) {
+        className += 'success';
+        status = "Completed";
+    } else {
+        className += 'failure';
+        status = "Failed";
+    }
     return (
-        <span className={className}>{props.result}</span>
+        <span className={className}>{status}</span>
     );
 };
 
@@ -28,7 +37,11 @@ const prepareDecisionTableRows = (rowData:IDecision[]) => {
         let row:IRow = {};
         let cells = [];
         cells.push(item.id);
+        cells.push(item.executorName);
         cells.push(new Date(item.evaluationDate).toLocaleString());
+        cells.push({
+            title: <ExecutionStatus result={item.evaluationSucceeded}/>
+        });
         cells.push({ title: <Link to={`/audit/${item.id}`}>View Detail</Link> });
         row.cells = cells;
         row.decisionKey = 'key-' + index;
@@ -38,8 +51,8 @@ const prepareDecisionTableRows = (rowData:IDecision[]) => {
 };
 
 const Audit = () => {
-    const emptyRow = SkeletonRows(3, 8, "decisionKey");
-    const [columns] = useState(['ID', 'Date', '']);
+    const emptyRow = SkeletonRows(5, 8, "decisionKey");
+    const [columns] = useState(['ID', 'Executor', 'Date', 'Execution Status', '']);
     const [rows, setRows] = useState<IRow[]>(emptyRow);
     const [searchString, setSearchString] = useState('');
     const [latestSearches] = useState(["1001", "1007", "1032"]);

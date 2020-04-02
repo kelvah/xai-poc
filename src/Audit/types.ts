@@ -1,6 +1,8 @@
 export interface IDecision {
     id: string,
     evaluationDate: Date,
+    evaluationSucceeded: boolean,
+    executorName: string,
     decision: {
         decisionId: string,
         decisionName: string,
