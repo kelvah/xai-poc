@@ -8,52 +8,53 @@ import {
     TextContent,
     TextInput, Title
 } from "@patternfly/react-core";
-import {Table, TableHeader, TableBody, IRow} from "@patternfly/react-table";
 import {Link} from "react-router-dom";
-import AuditList from "../Mocks/decisions-list-mock";
+import {Table, TableHeader, TableBody, IRow} from "@patternfly/react-table";
 import SkeletonRows from "../Shared/Skeletons/SkeletonRows";
+import {getDecisions} from "../Shared/Api/audit.api";
+import {IDecision} from "./types";
 
-const ApprovalState = (props:{result:string}) => {
+const ApprovalBadge = (props:{result:string}) => {
     let className = "decision-outcome-badge decision-outcome-badge--" + props.result.toLocaleLowerCase();
     return (
         <span className={className}>{props.result}</span>
     );
 };
-const rowData = [...AuditList];
-rowData.map((item:IRow, index) => {
-    if (item.cells && item.cells.length) {
-        let value = item.cells.pop();
-        if (typeof value === "string") {
-            item.cells.push({
-                title: <ApprovalState result={value}/>
-            });
-        }
-    }
-    if (item.cells) {
-        item.cells.push({title: <Link to={`/audit/${item.cells[0]}`}>View Detail</Link>});
-    }
-    item.decisionKey = 'key-' + index;
-    return item;
-});
+
+const prepareDecisionTableRows = (rowData:IDecision[]) => {
+    let rows:IRow[] = [];
+
+    rowData.forEach((item, index) => {
+        let row:IRow = {};
+        let cells = [];
+        cells.push(item.id);
+        cells.push(new Date(item.evaluationDate).toLocaleString());
+        cells.push({ title: <Link to={`/audit/${item.id}`}>View Detail</Link> });
+        row.cells = cells;
+        row.decisionKey = 'key-' + index;
+        rows.push(row);
+    });
+    return rows;
+};
 
 const Audit = () => {
-    const emptyRow = SkeletonRows(5, 8, "decisionKey");
-    const [columns] = useState(['ID', 'Subject Name', 'Date', 'Outcome', '']);
+    const emptyRow = SkeletonRows(3, 8, "decisionKey");
+    const [columns] = useState(['ID', 'Date', '']);
     const [rows, setRows] = useState<IRow[]>(emptyRow);
     const [searchString, setSearchString] = useState('');
     const [latestSearches] = useState(["1001", "1007", "1032"]);
 
     useEffect(() => {
-        setTimeout(() => {
-            setRows(rowData);
-        }, 1500);
+        getDecisions().then(response => {
+            setRows(prepareDecisionTableRows(response.data.data));
+        });
     }, []);
 
     const searchSubmit = (event:React.SyntheticEvent):void => {
         event.preventDefault();
-        if (searchString.length > 3) {
+        /* if (searchString.length > 3) {
             setRows(rowData.filter(item => item.cells[0].includes(searchString)))
-        }
+        }*/
     };
     return (
         <>
@@ -76,13 +77,13 @@ const Audit = () => {
                 </Form>
                 <div style={{marginBottom: 'var(--pf-global--spacer--lg)'}}>
                     <List variant={ListVariant.inline}>
-                        <ListItem>Last opened audits:</ListItem>
+                        <ListItem>Last Opened Decisions:</ListItem>
                         {latestSearches.map((item, index) => {
                             return <ListItem key={`row-${index}`}><Link to={`/audit/${item}`}>#{item}</Link></ListItem>
                         })}
                     </List>
                 </div>
-                <Table header="Latest Applications" cells={columns} rows={rows}>
+                <Table header="Latest Decisions" cells={columns} rows={rows}>
                     <TableHeader />
                     <TableBody rowKey="decisionKey" />
                 </Table>
