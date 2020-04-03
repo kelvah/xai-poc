@@ -14,6 +14,7 @@ import SkeletonRows from "../Shared/Skeletons/SkeletonRows";
 import {getDecisions} from "../Shared/Api/audit.api";
 import {IDecision} from "./types";
 import './Audit.scss';
+import DecisionListToolbar from "./DecisionListToolbar/DecisionListToolbar";
 
 const ExecutionStatus = (props:{result:boolean}) => {
     let className = "execution-status-badge execution-status-badge--";
@@ -50,18 +51,24 @@ const prepareDecisionTableRows = (rowData:IDecision[]) => {
     return rows;
 };
 
+const skeletonRows = SkeletonRows(5, 8, "decisionKey");
+
 const Audit = () => {
-    const emptyRow = SkeletonRows(5, 8, "decisionKey");
     const [columns] = useState(['ID', 'Executor', 'Date', 'Execution Status', '']);
-    const [rows, setRows] = useState<IRow[]>(emptyRow);
+    const [rows, setRows] = useState<IRow[]>(skeletonRows);
     const [searchString, setSearchString] = useState('');
     const [latestSearches] = useState(["1001", "1007", "1032"]);
+    let fromInitDate = new Date();
+    fromInitDate.setMonth(fromInitDate.getMonth() - 1);
+    const [fromDate, setFromDate] = useState(new Date().toISOString().substr(0, 10));
+    const [toDate, setToDate] = useState(fromInitDate.toISOString().substr(0, 10));
 
     useEffect(() => {
-        getDecisions().then(response => {
+        setRows(skeletonRows);
+        getDecisions(fromDate, toDate).then(response => {
             setRows(prepareDecisionTableRows(response.data.data));
         });
-    }, []);
+    }, [fromDate, toDate]);
 
     const searchSubmit = (event:React.SyntheticEvent):void => {
         event.preventDefault();
@@ -80,7 +87,13 @@ const Audit = () => {
                 </TextContent>
             </PageSection>
             <PageSection style={{minHeight: "50em"}} isFilled={true}>
-                <Form onSubmit={searchSubmit}>
+                <DecisionListToolbar
+                    fromDate={fromDate}
+                    toDate={toDate}
+                    onFromDateUpdate={setFromDate}
+                    onToDateUpdate={setToDate}
+                />
+                <Form onSubmit={searchSubmit} style={{display: "none"}}>
                     <InputGroup style={{width: "500px", marginBottom: 'var(--pf-global--spacer--lg)'}}>
                         <TextInput name="auditSearch" id="auditSearch" type="text" value={searchString} onChange={setSearchString} aria-label="search applications" />
                         <Button type="submit" variant={ButtonVariant.control} aria-label="search button for search input">
@@ -96,7 +109,7 @@ const Audit = () => {
                         })}
                     </List>
                 </div>
-                <Table header="Latest Decisions" cells={columns} rows={rows}>
+                <Table cells={columns} rows={rows}>
                     <TableHeader />
                     <TableBody rowKey="decisionKey" />
                 </Table>
