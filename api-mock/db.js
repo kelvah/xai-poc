@@ -26,7 +26,7 @@ let generateDecisionsList = () => {
     }
 
     let decisionsList = {
-        "total": 20,
+        "total": 65,
         "limit": 10,
         "offset": 0,
         "data": decisionsArray

@@ -62,13 +62,17 @@ const Audit = () => {
     fromInitDate.setMonth(fromInitDate.getMonth() - 1);
     const [fromDate, setFromDate] = useState(new Date().toISOString().substr(0, 10));
     const [toDate, setToDate] = useState(fromInitDate.toISOString().substr(0, 10));
+    const [page, setPage] = useState(1);
+    const [pageSize, setPageSize] = useState(10);
+    const [total, setTotal] = useState(0);
 
     useEffect(() => {
         setRows(skeletonRows);
-        getDecisions(fromDate, toDate).then(response => {
+        getDecisions(fromDate, toDate, pageSize, pageSize * (page - 1)).then(response => {
             setRows(prepareDecisionTableRows(response.data.data));
+            setTotal(response.data.total);
         });
-    }, [fromDate, toDate]);
+    }, [fromDate, toDate, page, pageSize]);
 
     const searchSubmit = (event:React.SyntheticEvent):void => {
         event.preventDefault();
@@ -92,6 +96,11 @@ const Audit = () => {
                     toDate={toDate}
                     onFromDateUpdate={setFromDate}
                     onToDateUpdate={setToDate}
+                    page={page}
+                    total={total}
+                    pageSize={pageSize}
+                    onSetPage={setPage}
+                    onSetPageSize={setPageSize}
                 />
                 <Form onSubmit={searchSubmit} style={{display: "none"}}>
                     <InputGroup style={{width: "500px", marginBottom: 'var(--pf-global--spacer--lg)'}}>
@@ -109,7 +118,7 @@ const Audit = () => {
                         })}
                     </List>
                 </div>
-                <Table cells={columns} rows={rows}>
+                <Table cells={columns} rows={rows} aria-label="Executions list">
                     <TableHeader />
                     <TableBody rowKey="decisionKey" />
                 </Table>
