@@ -75,8 +75,8 @@ const Audit = () => {
     const [latestSearches] = useState(["1001", "1007", "1032"]);
     let fromInitDate = new Date();
     fromInitDate.setMonth(fromInitDate.getMonth() - 1);
-    const [fromDate, setFromDate] = useState(new Date().toISOString().substr(0, 10));
-    const [toDate, setToDate] = useState(fromInitDate.toISOString().substr(0, 10));
+    const [fromDate, setFromDate] =  useState(fromInitDate.toISOString().substr(0, 10));
+    const [toDate, setToDate] = useState(new Date().toISOString().substr(0, 10));
     const [page, setPage] = useState(1);
     const [pageSize, setPageSize] = useState(10);
     const [total, setTotal] = useState(0);
@@ -121,11 +121,11 @@ const Audit = () => {
                     <DataToolbarContent>
                         <DataToolbarItem variant="label" id="stacked-example-resource-select">From</DataToolbarItem>
                         <DataToolbarItem>
-                            <FromFilter fromDate={fromDate} onFromDateUpdate={setFromDate}/>
+                            <FromFilter fromDate={fromDate} onFromDateUpdate={setFromDate} maxDate={toDate}/>
                         </DataToolbarItem>
                         <DataToolbarItem variant="label" id="stacked-example-resource-select">To</DataToolbarItem>
                         <DataToolbarItem>
-                            <ToFilter toDate={toDate} onToDateUpdate={setToDate}/>
+                            <ToFilter toDate={toDate} onToDateUpdate={setToDate} minDate={fromDate}/>
                         </DataToolbarItem>
                         <DataToolbarItem>
                             <InputGroup>
