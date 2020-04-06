@@ -1,20 +1,35 @@
 import React, {useEffect, useState} from "react";
 import {
     Button,
-    ButtonVariant, Form, InputGroup, List, ListItem, ListVariant,
+    ButtonVariant,
+    Form,
+    InputGroup,
+    List,
+    ListItem,
+    ListVariant,
     PageSection,
     PageSectionVariants,
     Text,
     TextContent,
-    TextInput, Title
+    TextInput,
+    Title
 } from "@patternfly/react-core";
 import {Link} from "react-router-dom";
-import {Table, TableHeader, TableBody, IRow} from "@patternfly/react-table";
+import {IRow, Table, TableBody, TableHeader} from "@patternfly/react-table";
 import SkeletonRows from "../Shared/Skeletons/SkeletonRows";
 import {getExecutions} from "../Shared/Api/audit.api";
 import {IExecution} from "./types";
 import './Audit.scss';
-import DecisionListToolbar from "./DecisionListToolbar/DecisionListToolbar";
+import {
+    DataToolbar,
+    DataToolbarContent,
+    DataToolbarItem,
+    DataToolbarItemVariant
+} from "@patternfly/react-core/dist/js/experimental";
+import {SearchIcon} from "@patternfly/react-icons";
+import FromFilter from "./FromFilter/FromFilter";
+import ToFilter from "./ToFilter/ToFilter";
+import PaginationContainer from "./PaginationContainer/PaginationContainer";
 
 const ExecutionStatus = (props:{result:boolean}) => {
     let className = "execution-status-badge execution-status-badge--";
@@ -37,7 +52,7 @@ const prepareExecutionTableRows = (rowData:IExecution[]) => {
     rowData.forEach((item, index) => {
         let row:IRow = {};
         let cells = [];
-        cells.push(item.executionId);
+        cells.push('#' + item.executionId);
         cells.push(item.executorName);
         cells.push(new Date(item.executionDate).toLocaleString());
         cells.push({
@@ -102,17 +117,37 @@ const Audit = () => {
                         })}
                     </List>
                 </div>
-                <DecisionListToolbar
-                    fromDate={fromDate}
-                    toDate={toDate}
-                    onFromDateUpdate={setFromDate}
-                    onToDateUpdate={setToDate}
-                    page={page}
-                    total={total}
-                    pageSize={pageSize}
-                    onSetPage={setPage}
-                    onSetPageSize={setPageSize}
-                />
+                <DataToolbar id="audit-list-top-toolbar" style={{marginBottom: 'var(--pf-global--spacer--lg)'}}>
+                    <DataToolbarContent>
+                        <DataToolbarItem variant="label" id="stacked-example-resource-select">From</DataToolbarItem>
+                        <DataToolbarItem>
+                            <FromFilter fromDate={fromDate} onFromDateUpdate={setFromDate}/>
+                        </DataToolbarItem>
+                        <DataToolbarItem variant="label" id="stacked-example-resource-select">To</DataToolbarItem>
+                        <DataToolbarItem>
+                            <ToFilter toDate={toDate} onToDateUpdate={setToDate}/>
+                        </DataToolbarItem>
+                        <DataToolbarItem>
+                            <InputGroup>
+                                <TextInput name="search" id="search" type="search" aria-label="search executions by ID" />
+                                <Button variant={ButtonVariant.control} aria-label="search button for search input">
+                                    <SearchIcon />
+                                </Button>
+                            </InputGroup>
+                        </DataToolbarItem>
+                        <DataToolbarItem variant={DataToolbarItemVariant.pagination}>
+                            <PaginationContainer
+                                total={total}
+                                page={page}
+                                pageSize={pageSize}
+                                onSetPage={setPage}
+                                onSetPageSize={setPageSize}
+                                paginationId="audit-list-top-pagination"
+                            />
+                        </DataToolbarItem>
+                    </DataToolbarContent>
+                </DataToolbar>
+
                 <Form onSubmit={searchSubmit} style={{display: "none"}}>
                     <InputGroup style={{width: "500px", marginBottom: 'var(--pf-global--spacer--lg)'}}>
                         <TextInput name="auditSearch" id="auditSearch" type="text" value={searchString} onChange={setSearchString} aria-label="search applications" />
@@ -126,6 +161,21 @@ const Audit = () => {
                     <TableHeader />
                     <TableBody rowKey="decisionKey" />
                 </Table>
+
+                <DataToolbar id="audit-list-bottom-toolbar" style={{marginTop: 'var(--pf-global--spacer--lg)'}}>
+                    <DataToolbarContent>
+                        <DataToolbarItem variant={DataToolbarItemVariant.pagination}>
+                            <PaginationContainer
+                                total={total}
+                                page={page}
+                                pageSize={pageSize}
+                                onSetPage={setPage}
+                                onSetPageSize={setPageSize}
+                                paginationId="audit-list-bottom-pagination"
+                            />
+                        </DataToolbarItem>
+                    </DataToolbarContent>
+                </DataToolbar>
             </PageSection>
         </>
     )
