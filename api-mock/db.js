@@ -32,7 +32,7 @@ let generateDecisionsList = () => {
         "data": decisionsArray
     };
 
-    return { "decisions":  decisionsList}
+    return { "executions":  decisionsList}
 };
 
 module.exports = generateDecisionsList;

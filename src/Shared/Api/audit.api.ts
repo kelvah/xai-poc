@@ -1,6 +1,6 @@
 import httpClient from "./httpClient";
 
-const DECISIONS = "/decisions";
+const DECISIONS = "/executions";
 
 const getDecisions = (from: string, to: string, limit: number, offset: number) => {
     return httpClient.get(DECISIONS, {
