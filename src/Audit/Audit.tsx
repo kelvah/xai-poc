@@ -68,10 +68,12 @@ const Audit = () => {
 
     useEffect(() => {
         setRows(skeletonRows);
-        getExecutions(fromDate, toDate, pageSize, pageSize * (page - 1)).then(response => {
-            setRows(prepareExecutionTableRows(response.data.headers));
-            setTotal(response.data.total);
-        });
+        getExecutions(fromDate, toDate, pageSize, pageSize * (page - 1))
+            .then(response => {
+                setRows(prepareExecutionTableRows(response.data.headers));
+                setTotal(response.data.total);
+            })
+            .catch(() => {});
     }, [fromDate, toDate, page, pageSize]);
 
     const searchSubmit = (event:React.SyntheticEvent):void => {
