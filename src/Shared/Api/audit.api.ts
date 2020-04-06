@@ -1,9 +1,9 @@
 import httpClient from "./httpClient";
 
-const DECISIONS = "/executions";
+const EXECUTIONS = "/executions";
 
-const getDecisions = (from: string, to: string, limit: number, offset: number) => {
-    return httpClient.get(DECISIONS, {
+const getExecutions = (from: string, to: string, limit: number, offset: number) => {
+    return httpClient.get(EXECUTIONS, {
         params: {
             from,
             to,
@@ -14,5 +14,5 @@ const getDecisions = (from: string, to: string, limit: number, offset: number) =
 };
 
 export {
-    getDecisions
+    getExecutions
 };

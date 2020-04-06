@@ -1,22 +1,14 @@
-export interface IDecision {
-    id: string,
-    evaluationDate: Date,
-    evaluationSucceeded: boolean,
-    executorName: string,
-    decision: {
-        decisionId: string,
-        decisionName: string,
-        evaluationStatus: string,
-        result: string,
-        messages: string[],
-        hasErrors: boolean
-    }
+export interface IExecution {
+    executionId: string,
+    executionDate: Date,
+    executionType: string,
+    executionSucceeded: boolean,
+    executorName: string
 }
 
-export interface IDecisionsList {
-    versions: string,
-    availableRecords: number,
-    returnedRecords: number,
+export interface IExecutionList {
+    total: number,
+    limit: number,
     offset: number,
-    data: IDecision[]
+    headers: IExecution[]
 }

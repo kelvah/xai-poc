@@ -5,23 +5,14 @@ let generateDecisionsList = () => {
     let decisionsArray = [];
 
     for (let id = 1000; id < 1010; id++) {
-        let evaluationDate = faker.date.past();
+        let executionDate = faker.date.past();
 
         decisionsArray.push({
-            "id": id,
-            "evaluationDate": evaluationDate,
-            "evaluationSucceeded": true,
-            "executorName": "Technical User",
-            "decisions": [
-                {
-                    "decisionId": "1",
-                    "decisionName": "Approval",
-                    "evaluationStatus": "done",
-                    "result": "Approved",
-                    "messages": [],
-                    "hasErrors": false
-                }
-            ]
+            "executionId": id,
+            "executionDate": executionDate,
+            "executionType": "DECISION",
+            "executionSucceeded": true,
+            "executorName": "Technical User"
         });
     }
 
@@ -29,7 +20,7 @@ let generateDecisionsList = () => {
         "total": 65,
         "limit": 10,
         "offset": 0,
-        "data": decisionsArray
+        "headers": decisionsArray
     };
 
     return { "executions":  decisionsList}

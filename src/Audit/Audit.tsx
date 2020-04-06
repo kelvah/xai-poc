@@ -11,8 +11,8 @@ import {
 import {Link} from "react-router-dom";
 import {Table, TableHeader, TableBody, IRow} from "@patternfly/react-table";
 import SkeletonRows from "../Shared/Skeletons/SkeletonRows";
-import {getDecisions} from "../Shared/Api/audit.api";
-import {IDecision} from "./types";
+import {getExecutions} from "../Shared/Api/audit.api";
+import {IExecution} from "./types";
 import './Audit.scss';
 import DecisionListToolbar from "./DecisionListToolbar/DecisionListToolbar";
 
@@ -31,19 +31,19 @@ const ExecutionStatus = (props:{result:boolean}) => {
     );
 };
 
-const prepareDecisionTableRows = (rowData:IDecision[]) => {
+const prepareExecutionTableRows = (rowData:IExecution[]) => {
     let rows:IRow[] = [];
 
     rowData.forEach((item, index) => {
         let row:IRow = {};
         let cells = [];
-        cells.push(item.id);
+        cells.push(item.executionId);
         cells.push(item.executorName);
-        cells.push(new Date(item.evaluationDate).toLocaleString());
+        cells.push(new Date(item.executionDate).toLocaleString());
         cells.push({
-            title: <ExecutionStatus result={item.evaluationSucceeded}/>
+            title: <ExecutionStatus result={item.executionSucceeded}/>
         });
-        cells.push({ title: <Link to={`/audit/${item.id}`}>View Detail</Link> });
+        cells.push({ title: <Link to={`/audit/${item.executionId}`}>View Detail</Link> });
         row.cells = cells;
         row.decisionKey = 'key-' + index;
         rows.push(row);
@@ -68,8 +68,8 @@ const Audit = () => {
 
     useEffect(() => {
         setRows(skeletonRows);
-        getDecisions(fromDate, toDate, pageSize, pageSize * (page - 1)).then(response => {
-            setRows(prepareDecisionTableRows(response.data.data));
+        getExecutions(fromDate, toDate, pageSize, pageSize * (page - 1)).then(response => {
+            setRows(prepareExecutionTableRows(response.data.headers));
             setTotal(response.data.total);
         });
     }, [fromDate, toDate, page, pageSize]);
@@ -80,6 +80,7 @@ const Audit = () => {
             setRows(rowData.filter(item => item.cells[0].includes(searchString)))
         }*/
     };
+
     return (
         <>
             <PageSection variant={PageSectionVariants.light}>
@@ -91,6 +92,14 @@ const Audit = () => {
                 </TextContent>
             </PageSection>
             <PageSection style={{minHeight: "50em"}} isFilled={true}>
+                <div style={{marginBottom: 'var(--pf-global--spacer--lg)'}}>
+                    <List variant={ListVariant.inline}>
+                        <ListItem>Last Opened Decisions:</ListItem>
+                        {latestSearches.map((item, index) => {
+                            return <ListItem key={`row-${index}`}><Link to={`/audit/${item}`}>#{item}</Link></ListItem>
+                        })}
+                    </List>
+                </div>
                 <DecisionListToolbar
                     fromDate={fromDate}
                     toDate={toDate}
@@ -110,14 +119,7 @@ const Audit = () => {
                         </Button>
                     </InputGroup>
                 </Form>
-                <div style={{marginBottom: 'var(--pf-global--spacer--lg)'}}>
-                    <List variant={ListVariant.inline}>
-                        <ListItem>Last Opened Decisions:</ListItem>
-                        {latestSearches.map((item, index) => {
-                            return <ListItem key={`row-${index}`}><Link to={`/audit/${item}`}>#{item}</Link></ListItem>
-                        })}
-                    </List>
-                </div>
+
                 <Table cells={columns} rows={rows} aria-label="Executions list">
                     <TableHeader />
                     <TableBody rowKey="decisionKey" />
