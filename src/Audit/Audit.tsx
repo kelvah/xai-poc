@@ -30,6 +30,7 @@ import {SearchIcon} from "@patternfly/react-icons";
 import FromFilter from "./FromFilter/FromFilter";
 import ToFilter from "./ToFilter/ToFilter";
 import PaginationContainer from "./PaginationContainer/PaginationContainer";
+import NoExecutions from "./NoExecutions/NoExecutions";
 
 const ExecutionStatus = (props:{result:boolean}) => {
     let className = "execution-status-badge execution-status-badge--";
@@ -67,6 +68,7 @@ const prepareExecutionTableRows = (rowData:IExecution[]) => {
 };
 
 const skeletonRows = SkeletonRows(5, 8, "decisionKey");
+const noResults = NoExecutions(5);
 
 const Audit = () => {
     const [columns] = useState(['ID', 'Executor', 'Date', 'Execution Status', '']);
@@ -85,7 +87,11 @@ const Audit = () => {
         setRows(skeletonRows);
         getExecutions(fromDate, toDate, pageSize, pageSize * (page - 1))
             .then(response => {
-                setRows(prepareExecutionTableRows(response.data.headers));
+                if (response.data.headers.length) {
+                    setRows(prepareExecutionTableRows(response.data.headers));
+                } else {
+                    setRows(noResults);
+                }
                 setTotal(response.data.total);
             })
             .catch(() => {});
