@@ -84,17 +84,22 @@ const Audit = () => {
     const [total, setTotal] = useState(0);
 
     useEffect(() => {
+        let didMount = true;
         setRows(skeletonRows);
         getExecutions(fromDate, toDate, pageSize, pageSize * (page - 1))
             .then(response => {
-                if (response.data.headers.length) {
-                    setRows(prepareExecutionTableRows(response.data.headers));
-                } else {
-                    setRows(noResults);
+                if (didMount) {
+                    let tableRows = (response.data.headers.length)
+                        ? prepareExecutionTableRows(response.data.headers)
+                        : noResults;
+                    setRows(tableRows);
+                    setTotal(response.data.total);
                 }
-                setTotal(response.data.total);
             })
             .catch(() => {});
+        return () => {
+            didMount = false;
+        };
     }, [fromDate, toDate, page, pageSize]);
 
     const searchSubmit = (event:React.SyntheticEvent):void => {
