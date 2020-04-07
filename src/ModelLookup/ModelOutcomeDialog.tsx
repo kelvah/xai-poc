@@ -1,14 +1,15 @@
-import React, {useState} from 'react';
-import {Button, Divider, Modal, Stack, StackItem, Title} from "@patternfly/react-core";
+import React, { useState } from 'react';
+import { Button, Divider, Modal, Stack, StackItem, Title } from "@patternfly/react-core";
 import OutcomeList from "../Outcome/OutcomeList";
+import { IModelVersion } from "../ModelLookup/types"
 
 type MODProps = {
     isOriginalVersion: boolean,
-    selectedVersion: string
+    selectedVersion: IModelVersion
 }
 
-const ModelOutcomeDialog = (props:MODProps) => {
-    const {isOriginalVersion, selectedVersion} = props;
+const ModelOutcomeDialog = (props: MODProps) => {
+    const { isOriginalVersion, selectedVersion } = props;
     const [isModalOpen, setIsModalOpen] = useState(false);
     const handleModalToggle = () => {
         setIsModalOpen(!isModalOpen);
@@ -33,10 +34,10 @@ const ModelOutcomeDialog = (props:MODProps) => {
             >
                 <Stack gutter="md">
                     <StackItem>
-                        <Title size="xl" headingLevel="h4"><strong>{decisionType}</strong> {decisionTitle} <strong>{selectedVersion}</strong></Title>
+                        <Title size="xl" headingLevel="h4"><strong>{decisionType}</strong> {decisionTitle} <strong>{selectedVersion.version}</strong></Title>
                     </StackItem>
                     <StackItem isFilled>
-                        <Divider component="div"/>
+                        <Divider component="div" />
                     </StackItem>
                     <StackItem>
                         <div style={{
