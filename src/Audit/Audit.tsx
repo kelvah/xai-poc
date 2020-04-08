@@ -1,8 +1,7 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {
     Button,
     ButtonVariant,
-    Form,
     InputGroup,
     List,
     ListItem,
@@ -47,11 +46,11 @@ const ExecutionStatus = (props:{result:boolean}) => {
     );
 };
 
-const prepareExecutionTableRows = (rowData:IExecution[]) => {
-    let rows:IRow[] = [];
+const prepareExecutionTableRows = (rowData: IExecution[]) => {
+    let rows: IRow[] = [];
 
     rowData.forEach((item, index) => {
-        let row:IRow = {};
+        let row: IRow = {};
         let cells = [];
         cells.push('#' + item.executionId);
         cells.push(item.executorName);
@@ -71,22 +70,29 @@ const skeletonRows = SkeletonRows(5, 8, "decisionKey");
 const noResults = NoExecutions(5);
 
 const Audit = () => {
-    const [columns] = useState(['ID', 'Executor', 'Date', 'Execution Status', '']);
+    const columns = ['ID', 'Executor', 'Date', 'Execution Status', ''];
     const [rows, setRows] = useState<IRow[]>(skeletonRows);
     const [searchString, setSearchString] = useState('');
     const [latestSearches] = useState(["1001", "1007", "1032"]);
-    let fromInitDate = new Date();
-    fromInitDate.setMonth(fromInitDate.getMonth() - 1);
-    const [fromDate, setFromDate] =  useState(fromInitDate.toISOString().substr(0, 10));
-    const [toDate, setToDate] = useState(new Date().toISOString().substr(0, 10));
+    const [fromDate, setFromDate] =  useState("");
+    const [toDate, setToDate] = useState("");
     const [page, setPage] = useState(1);
     const [pageSize, setPageSize] = useState(10);
     const [total, setTotal] = useState(0);
+    const searchField = useRef<HTMLInputElement>(null);
+    const onSearchSubmit = (): void => {
+        if (searchField && searchField.current) setSearchString(searchField.current.value);
+    };
+    const onSearchEnter = (event: React.KeyboardEvent): void => {
+        if (searchField && searchField.current && event.key === "Enter") {
+            setSearchString(searchField.current.value);
+        }
+    };
 
     useEffect(() => {
         let didMount = true;
         setRows(skeletonRows);
-        getExecutions(fromDate, toDate, pageSize, pageSize * (page - 1))
+        getExecutions(searchString, fromDate, toDate, pageSize, pageSize * (page - 1))
             .then(response => {
                 if (didMount) {
                     let tableRows = (response.data.headers.length)
@@ -100,14 +106,7 @@ const Audit = () => {
         return () => {
             didMount = false;
         };
-    }, [fromDate, toDate, page, pageSize]);
-
-    const searchSubmit = (event:React.SyntheticEvent):void => {
-        event.preventDefault();
-        /* if (searchString.length > 3) {
-            setRows(rowData.filter(item => item.cells[0].includes(searchString)))
-        }*/
-    };
+    }, [searchString, fromDate, toDate, page, pageSize]);
 
     return (
         <>
@@ -130,21 +129,22 @@ const Audit = () => {
                 </div>
                 <DataToolbar id="audit-list-top-toolbar" style={{marginBottom: 'var(--pf-global--spacer--lg)'}}>
                     <DataToolbarContent>
-                        <DataToolbarItem variant="label" id="stacked-example-resource-select">From</DataToolbarItem>
-                        <DataToolbarItem>
-                            <FromFilter fromDate={fromDate} onFromDateUpdate={setFromDate} maxDate={toDate}/>
-                        </DataToolbarItem>
-                        <DataToolbarItem variant="label" id="stacked-example-resource-select">To</DataToolbarItem>
-                        <DataToolbarItem>
-                            <ToFilter toDate={toDate} onToDateUpdate={setToDate} minDate={fromDate}/>
-                        </DataToolbarItem>
+                        <DataToolbarItem variant="label">Search</DataToolbarItem>
                         <DataToolbarItem>
                             <InputGroup>
-                                <TextInput name="search" id="search" type="search" aria-label="search executions by ID" />
-                                <Button variant={ButtonVariant.control} aria-label="search button for search input">
+                                <TextInput name="search" ref={searchField} id="search" type="search" aria-label="search executions" onKeyDown={onSearchEnter}/>
+                                <Button variant={ButtonVariant.control} aria-label="search button for search input" onClick={onSearchSubmit}>
                                     <SearchIcon />
                                 </Button>
                             </InputGroup>
+                        </DataToolbarItem>
+                        <DataToolbarItem variant="label">From</DataToolbarItem>
+                        <DataToolbarItem>
+                            <FromFilter fromDate={fromDate} onFromDateUpdate={setFromDate} maxDate={toDate}/>
+                        </DataToolbarItem>
+                        <DataToolbarItem variant="label">To</DataToolbarItem>
+                        <DataToolbarItem>
+                            <ToFilter toDate={toDate} onToDateUpdate={setToDate} minDate={fromDate}/>
                         </DataToolbarItem>
                         <DataToolbarItem variant={DataToolbarItemVariant.pagination}>
                             <PaginationContainer
@@ -158,15 +158,6 @@ const Audit = () => {
                         </DataToolbarItem>
                     </DataToolbarContent>
                 </DataToolbar>
-
-                <Form onSubmit={searchSubmit} style={{display: "none"}}>
-                    <InputGroup style={{width: "500px", marginBottom: 'var(--pf-global--spacer--lg)'}}>
-                        <TextInput name="auditSearch" id="auditSearch" type="text" value={searchString} onChange={setSearchString} aria-label="search applications" />
-                        <Button type="submit" variant={ButtonVariant.control} aria-label="search button for search input">
-                            Search
-                        </Button>
-                    </InputGroup>
-                </Form>
 
                 <Table cells={columns} rows={rows} aria-label="Executions list">
                     <TableHeader />
