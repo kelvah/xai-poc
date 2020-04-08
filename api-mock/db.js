@@ -1,6 +1,6 @@
 const faker = require('faker');
 
-let generateDecisionsList = () => {
+let generateFakeAPIs = () => {
 
     let decisionsArray = [];
 
@@ -23,7 +23,20 @@ let generateDecisionsList = () => {
         "headers": decisionsArray
     };
 
-    return { "executions":  decisionsList}
+    let decisionDetail = {
+        "executionId": faker.random.number(),
+        "executionDate": faker.date.past(),
+        "executionType": "DECISION",
+        "executionSucceeded": true,
+        "executorName": faker.name.findName()
+
+    }
+
+
+    return {
+        "executions":  decisionsList,
+        "decisions": decisionDetail
+    }
 };
 
-module.exports = generateDecisionsList;
+module.exports = generateFakeAPIs;
