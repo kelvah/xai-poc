@@ -15,8 +15,8 @@ import {
 } from "@patternfly/react-core";
 import {Link} from "react-router-dom";
 import {IRow, Table, TableBody, TableHeader} from "@patternfly/react-table";
-import SkeletonRows from "../Shared/Skeletons/SkeletonRows";
-import {getExecutions} from "../Shared/Api/audit.api";
+import SkeletonRows from "../Shared/skeletons/SkeletonRows";
+import {getExecutions} from "../Shared/api/audit.api";
 import {IExecution} from "./types";
 import './Audit.scss';
 import {
@@ -58,7 +58,7 @@ const prepareExecutionTableRows = (rowData: IExecution[]) => {
         cells.push({
             title: <ExecutionStatus result={item.executionSucceeded}/>
         });
-        cells.push({ title: <Link to={`/audit/${item.executionId}`}>View Detail</Link> });
+        cells.push({ title: <Link to={`/audit/${item.executionType.toLocaleLowerCase()}/${item.executionId}`}>View Detail</Link> });
         row.cells = cells;
         row.decisionKey = 'key-' + item.executionId;
         rows.push(row);

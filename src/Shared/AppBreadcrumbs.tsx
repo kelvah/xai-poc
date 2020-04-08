@@ -17,12 +17,15 @@ const routes = [
     { path: "/dashboard", breadcrumb: "Domain Monitoring Dashboard" },
     { path: "/op-dashboard", breadcrumb: "Operational Monitoring Dashboard" },
     { path: "/audit", breadcrumb: "Audit Investigation" },
-    { path: "/audit/:id/model-lookup", breadcrumb: "Model Lookup"},
-    { path: "/audit/:id/input-data", breadcrumb: "Input Data"},
-    { path: "/audit/:id", breadcrumb: AuditDetailBreadcrumb }
+    { path: "/audit/:executionType/:id/model-lookup", breadcrumb: "Model Lookup"},
+    { path: "/audit/:executionType/:id/input-data", breadcrumb: "Input Data"},
+    { path: "/audit/:executionType/:id", breadcrumb: AuditDetailBreadcrumb }
+];
+const excludePaths = [
+    '/audit/:executionType'
 ];
 
-const BreadcrumbList = withBreadcrumbs(routes)(({ breadcrumbs }) => {
+const BreadcrumbList = withBreadcrumbs(routes, { excludePaths })(({ breadcrumbs }) => {
     return (
         <Breadcrumb>
             {breadcrumbs.map(({match, location, breadcrumb}) => {

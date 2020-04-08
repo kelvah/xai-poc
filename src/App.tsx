@@ -143,7 +143,7 @@ const App = () => {
                     <Route exact path="/audit">
                         <Audit/>
                     </Route>
-                    <Route path="/audit/:id">
+                    <Route path="/audit/:executionType/:id">
                         <AuditDetail />
                     </Route>
                 </Switch>

@@ -1,7 +1,23 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Card, CardBody, CardHeader, Grid, GridItem, Title} from "@patternfly/react-core";
+import {useParams} from "react-router-dom";
+import {ExecutionType, getExecution} from "../Shared/api/audit.api";
+
+interface IRouteParams {
+    executionType: ExecutionType,
+    id: string
+}
 
 const ApplicationOverview = () => {
+
+    const { id, executionType } = useParams<IRouteParams>();
+
+    useEffect(() => {
+        getExecution(executionType as ExecutionType, id).then(response => {
+            console.log(response);
+        });
+    }, [executionType, id]);
+
     return (
         <Card>
             <CardHeader>
