@@ -49,7 +49,7 @@ const ExecutionStatus = (props:{result:boolean}) => {
 const prepareExecutionTableRows = (rowData: IExecution[]) => {
     let rows: IRow[] = [];
 
-    rowData.forEach((item, index) => {
+    rowData.forEach((item) => {
         let row: IRow = {};
         let cells = [];
         cells.push('#' + item.executionId);
@@ -60,7 +60,7 @@ const prepareExecutionTableRows = (rowData: IExecution[]) => {
         });
         cells.push({ title: <Link to={`/audit/${item.executionId}`}>View Detail</Link> });
         row.cells = cells;
-        row.decisionKey = 'key-' + index;
+        row.decisionKey = 'key-' + item.executionId;
         rows.push(row);
     });
     return rows;
