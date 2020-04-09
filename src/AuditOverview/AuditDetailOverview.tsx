@@ -7,7 +7,7 @@ import {
     Stack,
     StackItem, Title
 } from "@patternfly/react-core";
-import ApplicationOverview from "./ApplicationOverview";
+import ExecutionSummary from "./ExecutionSummary";
 import ModelOverview from "./ModelOverview";
 import OutcomeList from "../Outcome/OutcomeList";
 
@@ -18,7 +18,7 @@ const AuditDetailOverview = () => {
                 <GridItem span={6}>
                     <Stack gutter={"md"}>
                         <StackItem>
-                            <ApplicationOverview />
+                            <ExecutionSummary />
                         </StackItem>
                         <StackItem>
                             <ModelOverview />

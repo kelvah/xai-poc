@@ -1,3 +1,5 @@
+import {ExecutionType} from "../Shared/api/audit.api";
+
 export interface IExecution {
     executionId: string,
     executionDate: Date,
@@ -11,4 +13,9 @@ export interface IExecutionList {
     limit: number,
     offset: number,
     headers: IExecution[]
+}
+
+export interface IExecutionRouteParams {
+    executionType: ExecutionType,
+    id: string
 }
