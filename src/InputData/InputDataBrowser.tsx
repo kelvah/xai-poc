@@ -11,6 +11,9 @@ import {
 import "./inputDataBrowser.scss";
 import FeatureDistributionBoxPlot from "./FeatureDistributionBoxPlot";
 import FeatureDistributionStackedChart from "./FeatureDistributionStackedChart";
+import SkeletonStripes from "../Shared/skeletons/SkeletonStripes";
+import SkeletonDataList from "../Shared/skeletons/SkeletonDataList";
+
 
 type itemObject = {
     label: string,
@@ -21,6 +24,7 @@ type itemObject = {
     score?: number
 }
 type inputItems = { [key: string]: itemObject };
+
 const ItemsSubList = (props:{itemsList: { [key: string]: itemObject }}) => {
     const {itemsList} = props;
     let elements = [];
@@ -131,7 +135,6 @@ const InputValue = (props:any) => {
     )
 };
 
-
 let itemCategory = "";
 const renderItem = (item:itemObject, category?:string) => {
     if (item.hasOwnProperty('value')) {
@@ -186,8 +189,8 @@ const renderItem = (item:itemObject, category?:string) => {
     }
 };
 
-const InputDataBrowser = (props:{inputData:inputItems}) => {
-    const {inputData} = props;
+const InputDataBrowser = (props: {inputData: inputItems | null}) => {
+    const { inputData } = props;
     const [inputs, setInputs] = useState<itemObject[] | null>(null);
     const [categories, setCategories] = useState<string[]>([]);
     const [viewSection, setViewSection] = useState<number>(0);
@@ -197,64 +200,79 @@ const InputDataBrowser = (props:{inputData:inputItems}) => {
     };
 
     useEffect(() => {
-        const items:itemObject[] = [];
-        const categories = [];
-        const rootSection:itemObject = {
-            label: "Root",
-            children: {}
-        };
-        for (let item in inputData) {
-            if (inputData.hasOwnProperty(item)) {
-                if (inputData[item].hasOwnProperty("value")) {
-                    // collecting properties with values at root level (orphans of category)
-                    rootSection.children![item] = {...inputData[item]};
-                } else {
-                    items.push(inputData[item]);
-                    categories.push(inputData[item].label);
+        if (inputData) {
+            const items:itemObject[] = [];
+            const categories = [];
+            const rootSection:itemObject = {
+                label: "Root",
+                children: {}
+            };
+            for (let item in inputData) {
+                if (inputData.hasOwnProperty(item)) {
+                    if (inputData[item].hasOwnProperty("value")) {
+                        // collecting properties with values at root level (orphans of category)
+                        rootSection.children![item] = {...inputData[item]};
+                    } else {
+                        items.push(inputData[item]);
+                        categories.push(inputData[item].label);
+                    }
                 }
             }
+            if (Object.keys(rootSection).length) {
+                // if orphan properties has been found, add them to sections array and create "main" section
+                items.unshift(rootSection);
+                categories.unshift("Root");
+            }
+            setInputs(items);
+            setCategories(categories);
+            // open the fist section as default
+            setViewSection(0);
         }
-        if (Object.keys(rootSection).length) {
-            // if orphan properties has been found, add them to sections array and create "main" section
-            items.unshift(rootSection);
-            categories.unshift("Root");
-        }
-        setInputs(items);
-        setCategories(categories);
-        // open the fist section as default
-        setViewSection(0);
     }, [inputData]);
+
     return (
         <div className="input-browser">
             <div className="input-browser__section-list">
-                <span className="input-browser__section-list__label">Browse Section</span>
-                {categories.map((item, index) => (
-                    <Button
-                        type={"button"}
-                        variant={(index === viewSection) ? "primary" : "control"}
-                        isActive={(index === viewSection)}
-                        key={`section-${index}`}
-                        onClick={() => handleSectionSwitch(index)}>
-                        {item}
-                    </Button>
-                ))}
+                {!inputData && (
+                    <SkeletonStripes stripesNumber={6} stripesWidth={100} stripesHeight={2} />
+                )}
+                {inputData && (
+                    <>
+                        <span className="input-browser__section-list__label">Browse Section</span>
+                        {categories.map((item, index) => (
+                            <Button
+                                type={"button"}
+                                variant={(index === viewSection) ? "primary" : "control"}
+                                isActive={(index === viewSection)}
+                                key={`section-${index}`}
+                                onClick={() => handleSectionSwitch(index)}>
+                                {item}
+                            </Button>
+                        ))}
+                    </>
+                )}
             </div>
-            <DataList aria-label="Simple data list example">
-                <DataListItem aria-labelledby="header" key="header" className="input-browser__header">
-                    <DataListItemRow>
-                        <DataListItemCells dataListCells={[
-                            <DataListCell width={3} key="head 1"><span>Input Data</span></DataListCell>,
-                            <DataListCell width={2} key="head 2"><span>Value</span></DataListCell>,
-                            <DataListCell width={1} key="head 3"><span>Score</span></DataListCell>,
-                            <DataListCell width={5} key="head 4"><span>Distribution</span></DataListCell>,
-                        ]}>
-                        </DataListItemCells>
-                    </DataListItemRow>
-                </DataListItem>
+            {!inputData && <SkeletonDataList rowsNumber={4} colsNumber={6} hasHeader={true} />}
+            {inputData && (
+                <>
+                    <DataList aria-label="Simple data list example">
+                        <DataListItem aria-labelledby="header" key="header" className="input-browser__header">
+                            <DataListItemRow>
+                                <DataListItemCells dataListCells={[
+                                    <DataListCell width={3} key="head 1"><span>Input Data</span></DataListCell>,
+                                    <DataListCell width={2} key="head 2"><span>Value</span></DataListCell>,
+                                    <DataListCell width={1} key="head 3"><span>Score</span></DataListCell>,
+                                    <DataListCell width={5} key="head 4"><span>Distribution</span></DataListCell>,
+                                ]}>
+                                </DataListItemCells>
+                            </DataListItemRow>
+                        </DataListItem>
 
-                { inputs && renderItem(inputs[viewSection]) }
-            </DataList>
-        </div>
+                        { inputs && renderItem(inputs[viewSection]) }
+                    </DataList>
+                </>
+            )}
+       </div>
     );
 };
 

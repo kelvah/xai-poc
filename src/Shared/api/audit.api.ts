@@ -3,7 +3,8 @@ import {AxiosRequestConfig} from "axios";
 
 const EXECUTIONS_PATH = "/executions";
 const DECISIONS_PATH = EXECUTIONS_PATH + "/decisions";
-const PROCESS_PATH = EXECUTIONS_PATH + "/decisions";
+const PROCESS_PATH = EXECUTIONS_PATH + "/processes";
+
 export type ExecutionType = 'decision' | 'process';
 
 const getExecPath = (executionType: ExecutionType) => {
@@ -43,7 +44,16 @@ const getExecution = (executionType: ExecutionType, id: string) => {
     return httpClient(getExecConfig);
 };
 
+const getDecisionInput = (id: string) => {
+    const getDecisionInputConfig: AxiosRequestConfig = {
+        url: `${DECISIONS_PATH}/${id}/inputs`,
+        method: 'get'
+    }
+    return httpClient(getDecisionInputConfig);
+};
+
 export {
     getExecutions,
-    getExecution
+    getExecution,
+    getDecisionInput
 };
