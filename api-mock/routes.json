@@ -1,3 +1,4 @@
 {
-  "/executions/:executionType/:id": "/decisions?id=:id"
+  "/executions/:executionType/:id": "/decisions?id=:id",
+  "/executions/:executionType/:id/inputs": "/inputs?id=id"
 }
