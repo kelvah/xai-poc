@@ -3,11 +3,12 @@ import {DataList, DataListCell, DataListItem, DataListItemCells, DataListItemRow
 
 type ownProps = {
     rowsNumber: number,
-    colsNumber: number
+    colsNumber: number,
+    hasHeader?: boolean
 }
 
-const SkeletonGrid = (props: ownProps) => {
-    const { rowsNumber, colsNumber } = props;
+const SkeletonDataList = (props: ownProps) => {
+    const { rowsNumber, colsNumber, hasHeader } = props;
 
     let rows = [];
     for (let i = 0; i < rowsNumber; i++) {
@@ -30,16 +31,22 @@ const SkeletonGrid = (props: ownProps) => {
     return (
         <DataList aria-label="Loading content">
             <DataListItem aria-labelledby="Loading content">
-                {rows.map(item => (
-                    <DataListItemRow>
-                        <DataListItemCells
-                            dataListCells={item.cells}
-                        />
-                    </DataListItemRow>
-                ))}
+                {rows.map((item, index) => {
+                    let headerClass;
+                    if (hasHeader && index === 0) {
+                        headerClass = 'skeleton__header';
+                    }
+                    return (
+                        <DataListItemRow className={headerClass}>
+                            <DataListItemCells
+                                dataListCells={item.cells}
+                            />
+                        </DataListItemRow>
+                    )
+                })}
             </DataListItem>
         </DataList>
     );
 };
 
-export default SkeletonGrid;
+export default SkeletonDataList;

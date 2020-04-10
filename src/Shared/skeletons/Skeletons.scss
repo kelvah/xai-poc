@@ -6,13 +6,22 @@
     background: #f6f7f8;
     background: linear-gradient(to right, #eeeeee 8%, #dddddd 18%, #eeeeee 33%);
     background-size: 800px 104px;
-    animation: linear 1.5s placeHolderShimmer infinite;
+    animation: linear 1.3s placeHolderShimmer infinite;
     &--md {
       width: 80%;
     }
     &--lg {
       width: 60%;
     }
+  }
+  &__header {
+    background-color: #f2f2f2;
+    .skeleton__stripe {
+      opacity: 0.7;
+    }
+  }
+  &--padded {
+    padding: 0 1em;
   }
 }
 
