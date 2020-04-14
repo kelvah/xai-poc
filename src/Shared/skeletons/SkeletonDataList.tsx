@@ -23,7 +23,8 @@ const SkeletonDataList = (props: ownProps) => {
             )
         }
         let skeletonRow = {
-            cells: row
+            cells: row,
+            key: 'skeleton-row-' + i
         };
         rows.push(skeletonRow);
     }
@@ -37,7 +38,7 @@ const SkeletonDataList = (props: ownProps) => {
                         headerClass = 'skeleton__header';
                     }
                     return (
-                        <DataListItemRow className={headerClass}>
+                        <DataListItemRow className={headerClass} key={item.key}>
                             <DataListItemCells
                                 dataListCells={item.cells}
                             />
