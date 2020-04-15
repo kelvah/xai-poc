@@ -14,44 +14,44 @@ import FeatureDistributionStackedChart from "./FeatureDistributionStackedChart";
 import SkeletonStripes from "../Shared/skeletons/SkeletonStripes";
 import SkeletonDataList from "../Shared/skeletons/SkeletonDataList";
 
-type itemObject = {
+interface IItemObject {
     inputName: string,
     typeRef: string,
     value?: string | number,
-    components?: (itemObject | itemObject[])[],
+    components?: (IItemObject | IItemObject[])[],
     impact?: boolean | number,
     score?: number
 }
 
-type inputRow = {
+interface IInputRow {
     inputLabel: string,
     inputValue?: string | number,
     hasEffect?: boolean | number,
     score?: number,
-    key: number,
+    key: string,
     category: string
 }
 
-function instanceOfItemObjectArray(object: any): object is itemObject[] {
+function instanceOfItemObjectArray(object: any): object is IItemObject[] {
     return typeof object[0].inputName == 'string';
 }
-function instanceOfItemObjectMultiArray(object: any): object is itemObject[][] {
+function instanceOfItemObjectMultiArray(object: any): object is IItemObject[][] {
     return Array.isArray(object[0]);
 }
 
-const ItemsSubList = (props: { itemsList: itemObject[] }) => {
+const ItemsSubList = (props: { itemsList: IItemObject[] }) => {
     const { itemsList } = props;
 
     return (
-        <DataListItem aria-labelledby={""} className={"category__sublist"}>
-            <DataList aria-label={""} className={"category__sublist__item"}>
+        <DataListItem aria-labelledby="" className={"category__sublist"}>
+            <DataList aria-label="" className={"category__sublist__item"}>
                 {itemsList.map(item => (
                         <InputValue
                             inputLabel={item.inputName}
                             inputValue={item.value}
                             hasEffect={item.impact}
                             score={item.score}
-                            key={Math.floor(Math.random() * 10000)}
+                            key={item.inputName}
                             category={itemCategory}
                         />
                     ))
@@ -64,17 +64,17 @@ const CategoryLine = (props: { categoryLabel: string }) => {
     const { categoryLabel } = props;
     const categoryKey = categoryLabel.replace(' ', '').toLocaleLowerCase();
     return (
-        <DataListItem aria-labelledby={""} key={"category-" + categoryKey} className="category__heading">
+        <DataListItem aria-labelledby={categoryLabel} key={"category-" + categoryKey} className="category__heading">
             <DataListItemRow>
                 <DataListItemCells dataListCells={[
-                    <DataListCell key="primary content"><span>{categoryLabel}</span></DataListCell>
+                    <DataListCell key={categoryLabel}><span>{categoryLabel}</span></DataListCell>
                 ]}>
                 </DataListItemCells>
             </DataListItemRow>
         </DataListItem>
     )
 };
-const InputValue = (props: inputRow) => {
+const InputValue = (props: IInputRow) => {
     const { inputValue, inputLabel, category, hasEffect, score } = props;
     const effectItemClass = (hasEffect === true) ? "input-data--affecting" : "input-data--ignored";
     //const effectIconClass = (hasEffect === true) ? "input-data__icons__effect" : "input-data__icons__no-effect";
@@ -145,18 +145,17 @@ const InputValue = (props: inputRow) => {
 
 let itemCategory = "";
 
-const renderItem = (item: itemObject, category?: string): JSX.Element => {
+const renderItem = (item: IItemObject, category?: string): JSX.Element => {
     let renderItems: JSX.Element[] = [];
 
     if (item.hasOwnProperty('value')) {
-        let key = Math.floor(Math.random() * 10000);
         return <InputValue
                     inputLabel={item.inputName}
                     inputValue={item.value}
                     hasEffect={item.impact}
                     score={item.score}
                     category={itemCategory}
-                    key={key} />
+                    key={item.inputName} />
     }
 
     if (item.hasOwnProperty('components')) {
@@ -177,7 +176,7 @@ const renderItem = (item: itemObject, category?: string): JSX.Element => {
                 }
             }
             return (
-                <React.Fragment key={Math.floor(Math.random() * 10000)}>
+                <React.Fragment key={categoryLabel}>
                     <div className='category' >
                         <CategoryLine categoryLabel={categoryLabel} />
                     </div>
@@ -189,9 +188,9 @@ const renderItem = (item: itemObject, category?: string): JSX.Element => {
     return <></>;
 };
 
-const InputDataBrowser = (props: {inputData: itemObject[] | null}) => {
+const InputDataBrowser = (props: {inputData: IItemObject[] | null}) => {
     const { inputData } = props;
-    const [inputs,  setInputs] = useState<itemObject[] | null>(null);
+    const [inputs,  setInputs] = useState<IItemObject[] | null>(null);
     const [categories, setCategories] = useState<string[]>([]);
     const [viewSection, setViewSection] = useState<number>(0);
 
@@ -201,9 +200,9 @@ const InputDataBrowser = (props: {inputData: itemObject[] | null}) => {
 
     useEffect(() => {
         if (inputData) {
-            const items: itemObject[] = [];
+            const items: IItemObject[] = [];
             const categories = [];
-            const rootSection: itemObject = {
+            const rootSection: IItemObject = {
                 inputName: "Root",
                 typeRef: "root",
                 components: []
@@ -226,7 +225,6 @@ const InputDataBrowser = (props: {inputData: itemObject[] | null}) => {
             setCategories(categories);
             // open the fist section as default
             setViewSection(0);
-            console.log('display section 0')
         }
     }, [inputData]);
 
@@ -255,19 +253,18 @@ const InputDataBrowser = (props: {inputData: itemObject[] | null}) => {
             {!inputData && <SkeletonDataList rowsNumber={4} colsNumber={6} hasHeader={true} />}
             {inputData && (
                 <>
-                    <DataList aria-label="Simple data list example">
+                    <DataList aria-label="Input Data">
                         <DataListItem aria-labelledby="header" key="header" className="input-browser__header">
                             <DataListItemRow>
                                 <DataListItemCells dataListCells={[
-                                    <DataListCell width={3} key="head 1"><span>Input Data</span></DataListCell>,
-                                    <DataListCell width={2} key="head 2"><span>Value</span></DataListCell>,
-                                    <DataListCell width={1} key="head 3"><span>Score</span></DataListCell>,
-                                    <DataListCell width={5} key="head 4"><span>Distribution</span></DataListCell>,
+                                    <DataListCell width={3} key="Input Data"><span>Input Data</span></DataListCell>,
+                                    <DataListCell width={2} key="Value"><span>Value</span></DataListCell>,
+                                    <DataListCell width={1} key="Score"><span>Score</span></DataListCell>,
+                                    <DataListCell width={5} key="Distribution"><span>Distribution</span></DataListCell>,
                                 ]}>
                                 </DataListItemCells>
                             </DataListItemRow>
                         </DataListItem>
-
                         { inputs && renderItem(inputs[viewSection]) }
                     </DataList>
                 </>
