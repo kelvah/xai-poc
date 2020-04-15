@@ -19,7 +19,7 @@ const InputData = () => {
         return () => {
             isMounted = false;
         }
-    }, [id])
+    }, [id]);
 
     return (
         <>

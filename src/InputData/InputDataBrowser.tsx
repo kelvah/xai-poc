@@ -14,46 +14,54 @@ import FeatureDistributionStackedChart from "./FeatureDistributionStackedChart";
 import SkeletonStripes from "../Shared/skeletons/SkeletonStripes";
 import SkeletonDataList from "../Shared/skeletons/SkeletonDataList";
 
-
 type itemObject = {
-    label: string,
+    inputName: string,
+    typeRef: string,
     value?: string | number,
-    children?: { [key: string]: itemObject },
-    list?: { [key: string]: object }[],
+    components?: (itemObject | itemObject[])[],
     impact?: boolean | number,
     score?: number
 }
-type inputItems = { [key: string]: itemObject };
 
-const ItemsSubList = (props:{itemsList: { [key: string]: itemObject }}) => {
-    const {itemsList} = props;
-    let elements = [];
-    for (let element in itemsList) {
-        if (itemsList.hasOwnProperty(element)) {
-            elements.push(itemsList[element]);
-        }
-    }
+type inputRow = {
+    inputLabel: string,
+    inputValue?: string | number,
+    hasEffect?: boolean | number,
+    score?: number,
+    key: number,
+    category: string
+}
+
+function instanceOfItemObjectArray(object: any): object is itemObject[] {
+    return typeof object[0].inputName == 'string';
+}
+function instanceOfItemObjectMultiArray(object: any): object is itemObject[][] {
+    return Array.isArray(object[0]);
+}
+
+const ItemsSubList = (props: { itemsList: itemObject[] }) => {
+    const { itemsList } = props;
+
     return (
         <DataListItem aria-labelledby={""} className={"category__sublist"}>
             <DataList aria-label={""} className={"category__sublist__item"}>
-                { elements.map(item => {
-                    return (
+                {itemsList.map(item => (
                         <InputValue
-                            inputLabel={item.label}
+                            inputLabel={item.inputName}
                             inputValue={item.value}
                             hasEffect={item.impact}
                             score={item.score}
                             key={Math.floor(Math.random() * 10000)}
                             category={itemCategory}
                         />
-                    )})
+                    ))
                 }
             </DataList>
         </DataListItem>
     )
 };
-const CategoryLine = (props:any) => {
-    const {categoryLabel} = props;
+const CategoryLine = (props: { categoryLabel: string }) => {
+    const { categoryLabel } = props;
     const categoryKey = categoryLabel.replace(' ', '').toLocaleLowerCase();
     return (
         <DataListItem aria-labelledby={""} key={"category-" + categoryKey} className="category__heading">
@@ -66,8 +74,8 @@ const CategoryLine = (props:any) => {
         </DataListItem>
     )
 };
-const InputValue = (props:any) => {
-    const {inputValue, inputLabel, category, hasEffect, score} = props;
+const InputValue = (props: inputRow) => {
+    const { inputValue, inputLabel, category, hasEffect, score } = props;
     const effectItemClass = (hasEffect === true) ? "input-data--affecting" : "input-data--ignored";
     //const effectIconClass = (hasEffect === true) ? "input-data__icons__effect" : "input-data__icons__no-effect";
     //const effectTitle = (hasEffect === true) ? "Impacting Feature" : "Not Impacting Feature";
@@ -78,7 +86,7 @@ const InputValue = (props:any) => {
     dataListCells.push(<DataListCell width={2} key="secondary content"><span>{inputValue}</span></DataListCell>);
     dataListCells.push((
         <DataListCell width={1} key="score content" className="input-data__score">
-            {score}
+            {score || "N/A"}
         </DataListCell>
     ));
 
@@ -136,90 +144,81 @@ const InputValue = (props:any) => {
 };
 
 let itemCategory = "";
-const renderItem = (item:itemObject, category?:string) => {
+
+const renderItem = (item: itemObject, category?: string): JSX.Element => {
+    let renderItems: JSX.Element[] = [];
+
     if (item.hasOwnProperty('value')) {
         let key = Math.floor(Math.random() * 10000);
-        return <InputValue inputLabel={item.label} inputValue={item.value} hasEffect={item.impact} score={item.score} category={itemCategory} key={key} />
+        return <InputValue
+                    inputLabel={item.inputName}
+                    inputValue={item.value}
+                    hasEffect={item.impact}
+                    score={item.score}
+                    category={itemCategory}
+                    key={key} />
+    }
 
-    }
-    if (item.hasOwnProperty('children')) {
-        // console.table(item);
-        itemCategory = (category) ? `${itemCategory} / ${category}` : item.label;
-        let categoryLabel = (itemCategory.length > 0) ? `${itemCategory}` : item.label;
-        let children = [];
-        for (let child in item.children) {
-            if (item.children.hasOwnProperty(child)) {
-                children.push(item.children[child]);
-            }
-        }
-        return (
-            <React.Fragment key={Math.floor(Math.random() * 10000)}>
-                <div className='category' >
-                    <CategoryLine categoryLabel={categoryLabel} />
-                </div>
-                {children.map(item => renderItem(item, item.label))}
-            </React.Fragment>
-        )
-    }
-    if (item.hasOwnProperty('list')) {
-        itemCategory = (category) ? `${itemCategory} / ${category}` : item.label;
-        let categoryLabel = (itemCategory.length > 0) ? `${itemCategory}` : item.label;
-        let listItems:any[] = [];
-        if (item.list) {
-            item.list.forEach((object) => {
-                let itemFeatures = [];
-                for (let property in object) {
-                    if (object.hasOwnProperty(property)) {
-                        itemFeatures.push(object[property]);
-                    }
+    if (item.hasOwnProperty('components')) {
+        itemCategory = (category) ? `${itemCategory} / ${category}` : item.inputName;
+        let categoryLabel = (itemCategory.length > 0) ? `${itemCategory}` : item.inputName;
+
+        if (item.components) {
+            if (instanceOfItemObjectArray(item.components)) {
+                for (let subItem of item.components) {
+                    renderItems.push(renderItem(subItem, subItem.inputName));
                 }
-                listItems.push(itemFeatures);
-            });
-        }
-
-        return (
-            <React.Fragment key={Math.floor(Math.random() * 10000)}>
-                <div className='category'><CategoryLine categoryLabel={categoryLabel} key={Math.random()} /></div>
-                {listItems && listItems.map((item) => (
-                        <ItemsSubList itemsList={item} key={Math.floor(Math.random() * 10000)} />
+            } else if (instanceOfItemObjectMultiArray(item.components)) {
+                for (let subItem of item.components) {
+                    renderItems.push(<ItemsSubList
+                        itemsList={subItem}
+                        key={Math.floor(Math.random() * 10000)} />
                     )
-                )}
-            </React.Fragment>
-        )
+                }
+            }
+            return (
+                <React.Fragment key={Math.floor(Math.random() * 10000)}>
+                    <div className='category' >
+                        <CategoryLine categoryLabel={categoryLabel} />
+                    </div>
+                    {renderItems.map((item: JSX.Element) => item) }
+                </React.Fragment>
+            )
+        }
     }
+    return <></>;
 };
 
-const InputDataBrowser = (props: {inputData: inputItems | null}) => {
+const InputDataBrowser = (props: {inputData: itemObject[] | null}) => {
     const { inputData } = props;
-    const [inputs, setInputs] = useState<itemObject[] | null>(null);
+    const [inputs,  setInputs] = useState<itemObject[] | null>(null);
     const [categories, setCategories] = useState<string[]>([]);
     const [viewSection, setViewSection] = useState<number>(0);
 
-    const handleSectionSwitch = (index:number) => {
+    const handleSectionSwitch = (index: number) => {
         setViewSection(index);
     };
 
     useEffect(() => {
         if (inputData) {
-            const items:itemObject[] = [];
+            const items: itemObject[] = [];
             const categories = [];
-            const rootSection:itemObject = {
-                label: "Root",
-                children: {}
+            const rootSection: itemObject = {
+                inputName: "Root",
+                typeRef: "root",
+                components: []
             };
-            for (let item in inputData) {
-                if (inputData.hasOwnProperty(item)) {
-                    if (inputData[item].hasOwnProperty("value")) {
-                        // collecting properties with values at root level (orphans of category)
-                        rootSection.children![item] = {...inputData[item]};
-                    } else {
-                        items.push(inputData[item]);
-                        categories.push(inputData[item].label);
-                    }
+            for (let item of inputData) {
+                if (item.hasOwnProperty("value")) {
+                    // collecting inputs with values at root level (not containing components)
+                    rootSection.components!.push(item);
+                } else {
+                    items.push(item);
+                    categories.push(item.inputName);
                 }
             }
-            if (Object.keys(rootSection).length) {
-                // if orphan properties has been found, add them to sections array and create "main" section
+            if (rootSection.components!.length) {
+                // if the root section as something inside it, than add the root section as first one
                 items.unshift(rootSection);
                 categories.unshift("Root");
             }
@@ -227,6 +226,7 @@ const InputDataBrowser = (props: {inputData: inputItems | null}) => {
             setCategories(categories);
             // open the fist section as default
             setViewSection(0);
+            console.log('display section 0')
         }
     }, [inputData]);
 
