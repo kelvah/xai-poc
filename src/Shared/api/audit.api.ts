@@ -46,7 +46,7 @@ const getExecution = (executionType: ExecutionType, id: string) => {
 
 const getDecisionInput = (id: string) => {
     const getDecisionInputConfig: AxiosRequestConfig = {
-        url: `${DECISIONS_PATH}/${id}/inputs`,
+        url: `${DECISIONS_PATH}/${id}/structuredInputs`,
         method: 'get'
     }
     return httpClient(getDecisionInputConfig);

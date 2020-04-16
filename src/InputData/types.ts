@@ -1,8 +1,17 @@
-export interface IInputData {
-    label: string,
+export interface IItemObject {
+    inputName: string,
+    typeRef: string,
     value?: string | number,
-    children?: { [key: string]: IInputData },
-    list?: { [key: string]: object }[],
+    components?: (IItemObject | IItemObject[])[],
     impact?: boolean | number,
     score?: number
+}
+
+export interface IInputRow {
+    inputLabel: string,
+    inputValue?: string | number,
+    hasEffect?: boolean | number,
+    score?: number,
+    key: string,
+    category: string
 }

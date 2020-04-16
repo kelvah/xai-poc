@@ -13,24 +13,7 @@ import FeatureDistributionBoxPlot from "./FeatureDistributionBoxPlot";
 import FeatureDistributionStackedChart from "./FeatureDistributionStackedChart";
 import SkeletonStripes from "../Shared/skeletons/SkeletonStripes";
 import SkeletonDataList from "../Shared/skeletons/SkeletonDataList";
-
-interface IItemObject {
-    inputName: string,
-    typeRef: string,
-    value?: string | number,
-    components?: (IItemObject | IItemObject[])[],
-    impact?: boolean | number,
-    score?: number
-}
-
-interface IInputRow {
-    inputLabel: string,
-    inputValue?: string | number,
-    hasEffect?: boolean | number,
-    score?: number,
-    key: string,
-    category: string
-}
+import {IInputRow, IItemObject} from "./types";
 
 function instanceOfItemObjectArray(object: any): object is IItemObject[] {
     return typeof object[0].inputName == 'string';
