@@ -131,7 +131,7 @@ let itemCategory = "";
 const renderItem = (item: IItemObject, category?: string): JSX.Element => {
     let renderItems: JSX.Element[] = [];
 
-    if (item.hasOwnProperty('value')) {
+    if (item.value) {
         return <InputValue
                     inputLabel={item.inputName}
                     inputValue={item.value}
@@ -141,7 +141,7 @@ const renderItem = (item: IItemObject, category?: string): JSX.Element => {
                     key={item.inputName} />
     }
 
-    if (item.hasOwnProperty('components')) {
+    if (item.components.length) {
         itemCategory = (category) ? `${itemCategory} / ${category}` : item.inputName;
         let categoryLabel = (itemCategory.length > 0) ? `${itemCategory}` : item.inputName;
 
@@ -161,7 +161,7 @@ const renderItem = (item: IItemObject, category?: string): JSX.Element => {
             return (
                 <React.Fragment key={categoryLabel}>
                     <div className='category' >
-                        <CategoryLine categoryLabel={categoryLabel} />
+                        <CategoryLine categoryLabel={categoryLabel} key={`category-${categoryLabel}`} />
                     </div>
                     {renderItems.map((item: JSX.Element) => item) }
                 </React.Fragment>
@@ -188,10 +188,11 @@ const InputDataBrowser = (props: {inputData: IItemObject[] | null}) => {
             const rootSection: IItemObject = {
                 inputName: "Root",
                 typeRef: "root",
+                value: null,
                 components: []
             };
             for (let item of inputData) {
-                if (item.hasOwnProperty("value")) {
+                if (item.value) {
                     // collecting inputs with values at root level (not containing components)
                     rootSection.components!.push(item);
                 } else {

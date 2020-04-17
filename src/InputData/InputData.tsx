@@ -13,7 +13,7 @@ const InputData = () => {
         let isMounted = true;
         getDecisionInput(id).then(response => {
             if (isMounted) {
-                setInputData(response.data.input);
+                setInputData(response.data.inputs);
             }
         });
         return () => {
