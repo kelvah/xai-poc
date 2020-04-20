@@ -9,7 +9,7 @@ import {
 } from "@patternfly/react-core";
 import ExecutionSummary from "./ExecutionSummary";
 import ModelOverview from "./ModelOverview";
-import OutcomeList from "../Outcome/OutcomeList";
+import OutcomeOverview from "./OutcomeOverview";
 
 const AuditDetailOverview = () => {
     return (
@@ -31,11 +31,12 @@ const AuditDetailOverview = () => {
                             <Card>
                                 <CardHeader>
                                     <Title headingLevel="h3" size="2xl">
-                                        DECISION OUTCOME
+                                        Decision Outcome
                                     </Title>
                                 </CardHeader>
                                 <CardBody>
-                                    <OutcomeList allAttributes={false} />
+                                    <OutcomeOverview />
+                                    {/*<OutcomeList allAttributes={false} />*/}
                                 </CardBody>
                             </Card>
                         </StackItem>

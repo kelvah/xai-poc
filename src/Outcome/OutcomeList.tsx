@@ -2,6 +2,7 @@ import React from 'react';
 import {Grid, GridItem, Title} from "@patternfly/react-core";
 import './Outcome.scss';
 import outcomeList from "../Mocks/outcome-list-mock";
+
 type itemObject = {
     label: string,
     value?: string | number,
@@ -10,6 +11,7 @@ type itemObject = {
     impact?: boolean | number,
     highlighted?: boolean
 }
+
 const OutcomeListTitle = (props:{item:{[index: string]:itemObject}, titleProperty:string}) => {
     const {item, titleProperty} = props;
     return (

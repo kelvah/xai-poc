@@ -27,7 +27,7 @@ const ExecutionSummary = () => {
         <Card>
             <CardHeader>
                 <Title headingLevel="h3" size="2xl">
-                    EXECUTION SUMMARY
+                    Execution Summary
                 </Title>
             </CardHeader>
             <CardBody>
