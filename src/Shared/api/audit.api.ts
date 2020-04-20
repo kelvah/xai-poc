@@ -52,8 +52,17 @@ const getDecisionInput = (id: string) => {
     return httpClient(getDecisionInputConfig);
 };
 
+const getDecisionOutcome = (id: string) => {
+    const getDecisionOutcomeConfig : AxiosRequestConfig = {
+        url: `${DECISIONS_PATH}/${id}/outcomes`,
+        method: 'get'
+    }
+    return httpClient(getDecisionOutcomeConfig);
+}
+
 export {
     getExecutions,
     getExecution,
-    getDecisionInput
+    getDecisionInput,
+    getDecisionOutcome
 };
